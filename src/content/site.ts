@@ -23,6 +23,8 @@ export const contact = {
   email: "hello@yourstudio.com",
   phone: "+254 700 000 000",
   phoneHref: "tel:+254700000000",
+  /** wa.me link: country code + number, digits only. */
+  whatsappHref: "https://wa.me/254700000000",
   location: "Kenya, travelling for events",
   responseNote: "Every enquiry is answered personally.",
   timezone: "Africa/Nairobi",

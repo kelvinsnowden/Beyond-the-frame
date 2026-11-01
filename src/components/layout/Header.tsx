@@ -1,9 +1,9 @@
 "use client";
 
 import { AnimatePresence, motion, useMotionValueEvent, useScroll } from "motion/react";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Phone } from "lucide-react";
 import { useEffect, useState } from "react";
-import { brand, hero, nav } from "@/content/site";
+import { brand, contact, hero, nav } from "@/content/site";
 import { useExperience } from "@/components/providers/Experience";
 import { MenuOverlay } from "./MenuOverlay";
 import { cn } from "@/lib/cn";
@@ -168,19 +168,23 @@ function BookingBar() {
           className="fixed inset-x-3 bottom-3 z-40 sm:hidden"
           style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
         >
-          <a
-            href="#contact"
-            className="flex h-14 items-center justify-between rounded-full border border-line bg-ink/80 pl-5 pr-1.5 backdrop-blur-xl"
-          >
-            <span className="flex items-center gap-2 text-sm">
-              <span className="size-1.5 rounded-full bg-safelight motion-safe:animate-[rec-pulse_1.4s_ease-in-out_infinite]" />
-              Now booking
-            </span>
-            <span className="flex h-11 items-center gap-2 rounded-full bg-bone px-5 text-sm font-medium text-ink">
+          <div className="flex h-14 items-center justify-between rounded-full border border-line bg-ink/80 pl-1.5 pr-1.5 backdrop-blur-xl">
+            <a
+              href={contact.phoneHref}
+              className="flex h-11 items-center gap-2 rounded-full px-4 text-sm"
+              aria-label={`Call us on ${contact.phone}`}
+            >
+              <Phone className="size-4 text-safelight" />
+              Call us
+            </a>
+            <a
+              href="#contact"
+              className="flex h-11 items-center gap-2 rounded-full bg-bone px-5 text-sm font-medium text-ink"
+            >
               {hero.primaryCta.label}
               <ArrowUpRight className="size-4" />
-            </span>
-          </a>
+            </a>
+          </div>
         </motion.div>
       )}
     </AnimatePresence>

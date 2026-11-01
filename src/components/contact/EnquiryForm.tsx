@@ -102,8 +102,8 @@ export function EnquiryForm() {
             </h3>
             <p className="max-w-md text-lg leading-relaxed text-mute">
               Thank you, {data.name.split(" ")[0]}. We&rsquo;ll check availability
-              {data.dateFlexible || !data.date ? "" : ` for ${formatDate(data.date)}`} and reply to{" "}
-              <span className="text-bone">{data.email}</span> personally.
+              {data.dateFlexible || !data.date ? "" : ` for ${formatDate(data.date)}`} and call or WhatsApp
+              you on <span className="text-bone">{data.phone}</span> personally.
             </p>
             <button
               type="button"
@@ -195,9 +195,9 @@ export function EnquiryForm() {
             <Fieldset legend="About you" index="02">
               <div className="grid gap-8 sm:grid-cols-2">
                 <Field label="Your name" name="name" value={data.name} onChange={(v) => set("name", v)} error={errors.name} autoComplete="name" required />
-                <Field label="Email" name="email" type="email" value={data.email} onChange={(v) => set("email", v)} error={errors.email} autoComplete="email" required />
+                <Field label="Phone / WhatsApp" name="phone" type="tel" value={data.phone} onChange={(v) => set("phone", v)} error={errors.phone} autoComplete="tel" required />
               </div>
-              <Field label="Phone (optional)" name="phone" type="tel" value={data.phone} onChange={(v) => set("phone", v)} autoComplete="tel" />
+              <Field label="Email (optional)" name="email" type="email" value={data.email} onChange={(v) => set("email", v)} error={errors.email} autoComplete="email" />
               <Field
                 label="Tell us about the day"
                 name="message"
@@ -244,9 +244,9 @@ export function EnquiryForm() {
                   exit={{ opacity: 0 }}
                   className="border-l-2 border-safelight pl-4 text-sm"
                 >
-                  {serverError} You can also email us directly at{" "}
-                  <a className="underline" href={`mailto:${contact.email}`}>
-                    {contact.email}
+                  {serverError} You can also call or WhatsApp us on{" "}
+                  <a className="underline" href={contact.phoneHref}>
+                    {contact.phone}
                   </a>
                   .
                 </motion.p>

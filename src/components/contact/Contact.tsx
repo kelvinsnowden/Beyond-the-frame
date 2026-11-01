@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useScroll, useTransform } from "motion/react";
-import { ArrowUpRight, Check, Copy } from "lucide-react";
+import { ArrowUpRight, Check, Copy, MessageCircle, Phone } from "lucide-react";
 import { useRef, useState } from "react";
 import { contact, socials, testimonials } from "@/content/site";
 import { FadeIn, MaskText, SectionLabel } from "@/components/ui/Reveal";
@@ -40,31 +40,47 @@ export function Contact() {
 
           <FadeIn delay={0.1} className="mt-12 space-y-8 border-t border-line pt-8">
             <div>
-              <p className="label text-mute">Email</p>
-              <div className="mt-2 flex items-center gap-3">
-                <a href={`mailto:${contact.email}`} className="text-lg underline-offset-4 hover:underline md:text-xl">
-                  {contact.email}
+              <p className="label text-mute">Call or WhatsApp</p>
+              <div className="mt-3 flex items-center gap-3">
+                <a href={contact.phoneHref} className="display text-[clamp(2.25rem,4vw,3.25rem)] leading-none">
+                  {contact.phone}
                 </a>
                 <button
                   type="button"
                   onClick={async () => {
                     try {
-                      await navigator.clipboard.writeText(contact.email);
+                      await navigator.clipboard.writeText(contact.phone);
                       setCopied(true);
                       setTimeout(() => setCopied(false), 1800);
                     } catch {}
                   }}
-                  className="flex size-8 items-center justify-center rounded-full border border-line-strong text-mute hover:text-bone"
-                  aria-label={copied ? "Email copied" : "Copy email address"}
+                  className="flex size-8 shrink-0 items-center justify-center rounded-full border border-line-strong text-mute hover:text-bone"
+                  aria-label={copied ? "Number copied" : "Copy phone number"}
                 >
                   {copied ? <Check className="size-3.5" /> : <Copy className="size-3.5" />}
                 </button>
               </div>
+              <div className="mt-5 flex flex-wrap gap-2">
+                <a
+                  href={contact.phoneHref}
+                  className="group inline-flex h-12 items-center gap-2 rounded-full bg-bone px-6 text-sm font-medium text-ink"
+                >
+                  <Phone className="size-4" /> Call now
+                </a>
+                <a
+                  href={contact.whatsappHref}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex h-12 items-center gap-2 rounded-full border border-line-strong px-6 text-sm transition-colors hover:border-bone"
+                >
+                  <MessageCircle className="size-4" /> WhatsApp us
+                </a>
+              </div>
             </div>
             <div>
-              <p className="label text-mute">Phone</p>
-              <a href={contact.phoneHref} className="mt-2 block text-lg md:text-xl">
-                {contact.phone}
+              <p className="label text-mute">Email</p>
+              <a href={`mailto:${contact.email}`} className="mt-2 block text-mute underline-offset-4 hover:text-bone hover:underline">
+                {contact.email}
               </a>
             </div>
             <div>

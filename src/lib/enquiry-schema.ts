@@ -23,7 +23,9 @@ export function validateEnquiry(e: Partial<Enquiry>): EnquiryErrors {
   const errors: EnquiryErrors = {};
   if (!e.eventType) errors.eventType = "Choose the type of event.";
   if (!e.name || e.name.trim().length < 2) errors.name = "Please tell us your name.";
-  if (!e.email || !EMAIL.test(e.email.trim())) errors.email = "Enter a valid email so we can reply.";
+  const digits = (e.phone ?? "").replace(/\D/g, "");
+  if (digits.length < 9 || digits.length > 15) errors.phone = "Enter a phone number we can call or WhatsApp.";
+  if (e.email && !EMAIL.test(e.email.trim())) errors.email = "That email doesn't look right (or leave it blank).";
   if (!e.dateFlexible && !e.date) errors.date = "Add a date, or tick “Date not set yet”.";
   const tooLong = (v: unknown, n: number) => typeof v === "string" && v.length > n;
   if (tooLong(e.message, 4000)) errors.message = "Please keep this under 4,000 characters.";

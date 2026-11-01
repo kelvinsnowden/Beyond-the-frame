@@ -77,12 +77,15 @@ export function MenuOverlay({ open, onClose }: { open: boolean; onClose: () => v
             exit={{ opacity: 0, transition: { duration: 0.2 } }}
           >
             <div className="space-y-1">
-              <p className="label text-mute">Enquiries</p>
-              <a href={`mailto:${contact.email}`} className="block text-lg">
-                {contact.email}
-              </a>
-              <a href={contact.phoneHref} className="block text-mute">
+              <p className="label text-mute">Call or WhatsApp</p>
+              <a href={contact.phoneHref} className="display block text-3xl">
                 {contact.phone}
+              </a>
+              <a href={contact.whatsappHref} target="_blank" rel="noreferrer" className="block text-mute hover:text-bone">
+                Message us on WhatsApp
+              </a>
+              <a href={`mailto:${contact.email}`} className="block text-sm text-mute hover:text-bone">
+                {contact.email}
               </a>
             </div>
             <ul className="flex flex-wrap gap-x-5 gap-y-2 sm:justify-end sm:self-end">

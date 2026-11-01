@@ -51,8 +51,8 @@ export async function POST(req: Request) {
     ["Guests", e.guests || "-"],
     ["Budget", e.budget || "-"],
     ["Name", e.name],
-    ["Email", e.email],
-    ["Phone", e.phone || "-"],
+    ["Phone / WhatsApp", e.phone],
+    ["Email", e.email || "-"],
   ];
   const subject = `New enquiry: ${e.eventType}${e.dateFlexible ? "" : `, ${e.date}`}, from ${e.name}`;
 
@@ -70,7 +70,7 @@ export async function POST(req: Request) {
         body: JSON.stringify({
           from: ENQUIRY_FROM_EMAIL || `${brand.name} Website <onboarding@resend.dev>`,
           to: ENQUIRY_TO_EMAIL.split(",").map((s) => s.trim()),
-          reply_to: e.email,
+          ...(e.email ? { reply_to: e.email } : {}),
           subject,
           html,
         }),
