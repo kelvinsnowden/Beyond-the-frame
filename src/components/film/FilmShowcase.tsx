@@ -3,7 +3,7 @@
 import { motion, useScroll, useTransform } from "motion/react";
 import { Play } from "lucide-react";
 import { useRef, useState } from "react";
-import { projects } from "@/content/site";
+import { featuredFilm } from "@/content/site";
 import { media } from "@/lib/media";
 import { MediaFrame } from "@/components/ui/MediaFrame";
 import { Magnetic } from "@/components/ui/Magnetic";
@@ -15,7 +15,7 @@ import { FilmPlayer } from "./FilmPlayer";
  * scrolls into view; one click opens the full film with sound.
  */
 export function FilmShowcase() {
-  const featured = projects.find((p) => p.film && media(p.film).kind === "video");
+  const featured = featuredFilm.film && media(featuredFilm.film).kind === "video" ? featuredFilm : undefined;
   const ref = useRef<HTMLElement>(null);
   const [open, setOpen] = useState(false);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "center center"] });

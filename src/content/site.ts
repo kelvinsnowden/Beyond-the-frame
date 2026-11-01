@@ -141,18 +141,14 @@ export const projects: Project[] = [
     gallery: ["photos/wedding-party-pink", "photos/wedding-getting-ready"],
   },
   {
-    slug: "waithera-kamau-ruracio",
-    title: "Waithera & Kamau",
+    slug: "the-procession",
+    title: "The Procession",
     category: "Traditional",
-    format: "both",
-    year: "2026",
-    tagline: "A Ruracio, in film.",
+    format: "photo",
     summary:
-      "A Ruracio told in film: the arrival from the air, the hats and the walking sticks, the dancing, and the voice messages guests left for the couple.",
-    cover: "stills/ruracio-fan",
-    preview: "clips/ruracio-preview",
-    film: "films/waithera-kamau-ruracio",
-    gallery: ["stills/ruracio-aerial", "stills/ruracio-hats", "stills/ruracio-dance"],
+      "Walking sticks, wide-brimmed hats and a family arriving together. A traditional ceremony photographed as it moved.",
+    cover: "photos/procession",
+    gallery: ["photos/celebration-fans", "photos/groom-portrait"],
   },
   {
     slug: "the-reveal",
@@ -162,16 +158,6 @@ export const projects: Project[] = [
     summary: "A red carpet, a giant bow and one very big surprise, captured the moment it landed.",
     cover: "photos/gift-reveal",
     gallery: [],
-  },
-  {
-    slug: "the-procession",
-    title: "The Procession",
-    category: "Traditional",
-    format: "photo",
-    summary:
-      "Walking sticks, wide-brimmed hats and a family arriving together. A traditional ceremony photographed as it moved.",
-    cover: "photos/procession",
-    gallery: ["photos/celebration-fans", "photos/groom-portrait"],
   },
   {
     slug: "the-bride",
@@ -236,6 +222,23 @@ export const projects: Project[] = [
     ],
   },
 ];
+
+
+/** The featured film ("Now showing"). Kept out of Selected work on purpose. */
+export const featuredFilm: Project = {
+    slug: "waithera-kamau-ruracio",
+    title: "Waithera & Kamau",
+    category: "Traditional",
+    format: "both",
+    year: "2026",
+    tagline: "A Ruracio, in film.",
+    summary:
+      "A Ruracio told in film: the arrival from the air, the hats and the walking sticks, the dancing, and the voice messages guests left for the couple.",
+    cover: "stills/ruracio-fan",
+    preview: "clips/ruracio-preview",
+    film: "films/waithera-kamau-ruracio",
+    gallery: ["stills/ruracio-aerial", "stills/ruracio-hats", "stills/ruracio-dance"],
+  };
 
 export type Service = {
   title: string;
