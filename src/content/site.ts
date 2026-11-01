@@ -82,7 +82,7 @@ export const studio = {
   media: ["photos/groom-portrait", "photos/celebration-fans", "photos/couple-terrace"],
 } as const;
 
-export type Category = "Traditional" | "Weddings" | "Couples" | "Portraits";
+export type Category = "Traditional" | "Weddings" | "Celebrations" | "Couples" | "Portraits";
 
 export type Project = {
   slug: string;
@@ -144,6 +144,24 @@ export const projects: Project[] = [
     gallery: [],
   },
   {
+    slug: "graduation-day",
+    title: "Graduation Day",
+    category: "Celebrations",
+    format: "photo",
+    summary: "Caps, gowns and bouquets bigger than the graduates — a proud family day on the red carpet.",
+    cover: "photos/grad-gowns",
+    gallery: ["photos/grad-family"],
+  },
+  {
+    slug: "the-reveal",
+    title: "The Reveal",
+    category: "Celebrations",
+    format: "photo",
+    summary: "A red carpet, a giant bow and one very big surprise — captured the moment it landed.",
+    cover: "photos/gift-reveal",
+    gallery: [],
+  },
+  {
     slug: "after-dark",
     title: "After Dark",
     category: "Couples",
@@ -166,9 +184,16 @@ export const projects: Project[] = [
     title: "Studio Editorial",
     category: "Portraits",
     format: "photo",
-    summary: "Clean light, strong poses — portrait sessions shot like a magazine spread.",
-    cover: "photos/studio-staircase",
-    gallery: ["photos/studio-denim"],
+    summary: "Bold colour, clean light and strong poses — birthday and portrait sessions shot like a magazine spread.",
+    cover: "photos/studio-orange",
+    gallery: [
+      "photos/studio-suit",
+      "photos/studio-copper",
+      "photos/studio-satin",
+      "photos/studio-sequin",
+      "photos/studio-staircase",
+      "photos/studio-denim",
+    ],
   },
 ];
 
@@ -204,11 +229,11 @@ export const services: Service[] = [
   },
   {
     title: "Celebrations",
-    kicker: "Birthdays · Anniversaries · Parties",
+    kicker: "Birthdays · Graduations · Surprises",
     description:
       "Milestones deserve more than phone footage. We capture the atmosphere, the people and the details you planned for months.",
     includes: ["Candid & guest coverage", "Detail & décor", "Same-week previews", "Social-ready edits"],
-    media: "photos/celebration-fans",
+    media: "photos/gift-reveal",
     enquiryType: "Celebration",
   },
   {
