@@ -19,11 +19,11 @@ export function Process() {
     <section id="process" aria-labelledby="process-title" className="gutter relative bg-ink-2 py-28 md:py-40">
       <div className="flex flex-col justify-between gap-10 md:flex-row md:items-end">
         <div>
-          <SectionLabel index="05">How it works</SectionLabel>
+          <SectionLabel index="05">Booking</SectionLabel>
           <h2 id="process-title" className="display mt-6 text-[clamp(2.75rem,7vw,6.75rem)]">
-            <MaskText className="block">Four steps.</MaskText>
+            <MaskText className="block">How to book</MaskText>
             <MaskText delay={0.1} className="block italic">
-              Zero stress.
+              with us.
             </MaskText>
           </h2>
         </div>
