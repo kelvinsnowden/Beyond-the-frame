@@ -51,6 +51,7 @@ export function PillButton({
   className,
   disabled,
   icon,
+  book,
 }: {
   children: string;
   href?: string;
@@ -60,6 +61,8 @@ export function PillButton({
   className?: string;
   disabled?: boolean;
   icon?: ReactNode;
+  /** Opens the booking popup instead of following the link. */
+  book?: boolean;
 }) {
   const styles = {
     solid: "bg-bone text-ink",
@@ -94,7 +97,7 @@ export function PillButton({
   return (
     <Magnetic>
       {href ? (
-        <a href={href} className={cls} onClick={onClick}>
+        <a href={href} className={cls} onClick={onClick} data-book={book ? "" : undefined}>
           {inner}
         </a>
       ) : (

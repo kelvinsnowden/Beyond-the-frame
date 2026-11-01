@@ -266,7 +266,7 @@ export function Hero() {
           animate={ready ? { opacity: 1, y: 0 } : undefined}
           transition={{ duration: 1.2, ease: EASE, delay: 1.35 }}
         >
-          <PillButton href={hero.primaryCta.href} icon={<ArrowUpRight className="size-4" />}>
+          <PillButton href={hero.primaryCta.href} book icon={<ArrowUpRight className="size-4" />}>
             {hero.primaryCta.label}
           </PillButton>
           <PillButton href={hero.secondaryCta.href} variant="ghost" className="bg-ink/30 backdrop-blur-sm">

@@ -91,6 +91,7 @@ export function Header() {
           <div className="flex items-center gap-2 md:gap-3">
             <a
               href={hero.primaryCta.href}
+              data-book
               className="group hidden h-10 items-center gap-2 rounded-full bg-bone px-5 text-sm font-medium text-ink transition-transform duration-300 hover:scale-[1.03] sm:inline-flex"
             >
               {hero.primaryCta.label}
@@ -179,6 +180,7 @@ function BookingBar() {
             </a>
             <a
               href="#contact"
+              data-book
               className="flex h-11 items-center gap-2 rounded-full bg-bone px-5 text-sm font-medium text-ink"
             >
               {hero.primaryCta.label}

@@ -138,6 +138,8 @@ export function Services() {
                         <div className="md:col-span-2 md:col-start-11 md:justify-self-end">
                           <a
                             href="#contact"
+                            data-book
+                            data-book-type={s.enquiryType}
                             onClick={() => prefillEnquiry({ eventType: s.enquiryType })}
                             className="group inline-flex items-center gap-2 border-b border-bone/40 pb-1 text-sm transition-colors hover:border-bone"
                           >

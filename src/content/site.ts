@@ -302,6 +302,29 @@ export type Testimonial = {
  */
 export const testimonials: Testimonial[] = [];
 
+/** Booking popup: photos shown per step / per event type (media keys). */
+export const booking = {
+  visuals: {
+    steps: [
+      "photos/procession",
+      "photos/bride-terrace",
+      "stills/ruracio-umbrella",
+      "photos/celebration-fans",
+      "photos/night-couple",
+    ],
+    byType: {
+      Wedding: "photos/bride-terrace",
+      "Traditional ceremony": "photos/procession",
+      Celebration: "photos/gift-reveal",
+      Corporate: "",
+      "Portrait session": "photos/studio-orange",
+      "Something else": "photos/night-portrait",
+    },
+    teaser: ["photos/bride-terrace", "photos/procession", "photos/gift-reveal", "photos/night-couple"],
+    done: "stills/ruracio-umbrella",
+  },
+} as const;
+
 export const enquiry = {
   eventTypes: ["Wedding", "Traditional ceremony", "Celebration", "Corporate", "Portrait session", "Something else"],
   coverage: ["Photography", "Film", "Both"],

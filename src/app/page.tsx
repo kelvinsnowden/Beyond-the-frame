@@ -15,6 +15,7 @@ import { Grain } from "@/components/ui/Grain";
 import { Marquee } from "@/components/ui/Marquee";
 import { ImageTrail } from "@/components/ui/ImageTrail";
 import { FilmShowcase } from "@/components/film/FilmShowcase";
+import { BookingPopup } from "@/components/booking/BookingPopup";
 import { projects, services } from "@/content/site";
 
 /** Every still from the portfolio, in order, for the trail band. */
@@ -46,6 +47,7 @@ export default function Home() {
         <Contact />
       </main>
       <Footer />
+      <BookingPopup />
       <Cursor />
       <Grain />
     </Experience>

@@ -162,6 +162,7 @@ export function Work() {
             >
               <a
                 href="#contact"
+                data-book
                 className="group flex w-full flex-col justify-between border border-line p-6 transition-colors duration-500 hover:border-bone/50 md:p-8"
                 style={{ minHeight: desktop ? "calc(var(--th) * 0.72)" : "60vw" }}
               >

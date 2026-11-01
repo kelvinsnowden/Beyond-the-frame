@@ -27,7 +27,7 @@ export function Process() {
             </MaskText>
           </h2>
         </div>
-        <PillButton href="#contact" icon={<ArrowUpRight className="size-4" />}>
+        <PillButton href="#contact" book icon={<ArrowUpRight className="size-4" />}>
           Start with step one
         </PillButton>
       </div>
