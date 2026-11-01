@@ -60,7 +60,7 @@ export const hero = {
   frames: [
     { media: "photos/procession", focal: "55% 40%", focalMobile: "58% 50%", caption: "Traditional ceremony" },
     { media: "photos/bride-terrace", focal: "50% 30%", focalMobile: "50% 50%", caption: "Wedding portrait" },
-    { media: "photos/night-couple", focal: "50% 34%", focalMobile: "50% 55%", caption: "Couples, after dark" },
+    { media: "photos/maternity", focal: "50% 10%", focalMobile: "50% 40%", caption: "Maternity portrait" },
   ] satisfies HeroFrame[],
   eyebrow: "Event photography & film",
   headline: ["It only", "happens", "once."],
