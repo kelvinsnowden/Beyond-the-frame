@@ -15,7 +15,7 @@ export const brand = {
   /** One-line positioning used in metadata & footer. */
   tagline:
     "Photography and film for weddings, traditional ceremonies and celebrations — directed with a cinematographer's eye.",
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://beyond-the-frame-indol.vercel.app",
 } as const;
 
 export const contact = {
