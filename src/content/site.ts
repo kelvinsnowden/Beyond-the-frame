@@ -84,7 +84,7 @@ export const studio = {
   media: ["photos/groom-portrait", "photos/celebration-fans", "photos/studio-satin"],
 } as const;
 
-export type Category = "Traditional" | "Weddings" | "Celebrations" | "Couples" | "Portraits";
+export type Category = "Traditional" | "Weddings" | "Celebrations" | "Couples" | "Portraits" | "Brand Shoots";
 
 export type Project = {
   slug: string;
@@ -112,6 +112,33 @@ export type Project = {
  * TODO(client): add real event names, locations & stories where you have permission.
  */
 export const projects: Project[] = [
+  {
+    slug: "awaiting",
+    title: "Awaiting",
+    category: "Portraits",
+    format: "photo",
+    summary: "A maternity portrait built in the studio, with silk, ribbon and roses in one deep, warm tone.",
+    cover: "photos/maternity",
+    gallery: [],
+  },
+  {
+    slug: "the-reveal",
+    title: "The Reveal",
+    category: "Celebrations",
+    format: "photo",
+    summary: "A red carpet, a giant bow and one very big surprise, captured the moment it landed.",
+    cover: "photos/gift-reveal",
+    gallery: [],
+  },
+  {
+    slug: "portrait-sessions",
+    title: "Portrait Sessions",
+    category: "Portraits",
+    format: "photo",
+    summary: "Warm light, a painted landscape and easy direction. Portraits for individuals, friends and anyone who wants to feel their best.",
+    cover: "photos/portrait-pearls",
+    gallery: ["photos/portrait-beige", "photos/friends-garden"],
+  },
   {
     slug: "waithera-kamau-ruracio",
     title: "Waithera & Kamau",
@@ -155,15 +182,6 @@ export const projects: Project[] = [
     gallery: ["photos/grad-family"],
   },
   {
-    slug: "the-reveal",
-    title: "The Reveal",
-    category: "Celebrations",
-    format: "photo",
-    summary: "A red carpet, a giant bow and one very big surprise, captured the moment it landed.",
-    cover: "photos/gift-reveal",
-    gallery: [],
-  },
-  {
     slug: "the-birthday-shoot",
     title: "The Birthday Shoot",
     category: "Celebrations",
@@ -182,22 +200,14 @@ export const projects: Project[] = [
     gallery: ["photos/night-couple"],
   },
   {
-    slug: "awaiting",
-    title: "Awaiting",
-    category: "Portraits",
+    slug: "uncaged",
+    title: "Uncaged.",
+    category: "Brand Shoots",
     format: "photo",
-    summary: "A maternity portrait built in the studio, with silk, ribbon and roses in one deep, warm tone.",
-    cover: "photos/maternity",
-    gallery: [],
-  },
-  {
-    slug: "portrait-sessions",
-    title: "Portrait Sessions",
-    category: "Portraits",
-    format: "photo",
-    summary: "Warm light, a painted landscape and easy direction. Portraits for individuals, friends and anyone who wants to feel their best.",
-    cover: "photos/portrait-pearls",
-    gallery: ["photos/portrait-beige", "photos/friends-garden"],
+    summary:
+      "A streetwear drop for Uncaged. Limits are the enemy: clean studio light, matching tees and the brand's message worn front and back.",
+    cover: "photos/brand-uncaged-front",
+    gallery: ["photos/brand-uncaged-back", "photos/brand-uncaged-hanger"],
   },
   {
     slug: "studio-editorial",
@@ -266,13 +276,13 @@ export const services: Service[] = [
     enquiryType: "Portrait session",
   },
   {
-    title: "Corporate",
-    kicker: "Conferences · Galas · Launches",
+    title: "Brand & Corporate",
+    kicker: "Brand shoots · Launches · Conferences",
     description:
-      "Discreet, professional coverage that gives your team months of content: speakers, guests, brand moments and recap films.",
-    includes: ["Keynotes & panels", "Brand activations", "Recap films", "Fast-turnaround selects"],
-    media: "",
-    enquiryType: "Corporate",
+      "Campaign imagery for clothing and product brands, plus discreet coverage of launches and events that gives your team months of content.",
+    includes: ["Product & apparel shoots", "Campaign imagery", "Launch & event coverage", "Social-ready edits"],
+    media: "photos/brand-uncaged-front",
+    enquiryType: "Brand & corporate",
   },
 ];
 
@@ -334,7 +344,7 @@ export const booking = {
       Wedding: "photos/bride-terrace",
       "Traditional ceremony": "photos/procession",
       Celebration: "photos/gift-reveal",
-      Corporate: "",
+      "Brand & corporate": "photos/brand-uncaged-front",
       "Portrait session": "photos/studio-orange",
       "Something else": "photos/night-portrait",
     },
@@ -344,7 +354,7 @@ export const booking = {
 } as const;
 
 export const enquiry = {
-  eventTypes: ["Wedding", "Traditional ceremony", "Celebration", "Corporate", "Portrait session", "Something else"],
+  eventTypes: ["Wedding", "Traditional ceremony", "Celebration", "Brand & corporate", "Portrait session", "Something else"],
   coverage: ["Photography", "Film", "Both"],
   // TODO(client): adjust currency & bands to match your pricing.
   budgets: ["Under KSh 50k", "KSh 50k-100k", "KSh 100k-250k", "KSh 250k +", "Not sure yet"],

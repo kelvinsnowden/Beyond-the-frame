@@ -102,9 +102,9 @@ export function Work() {
       <div className={cn(desktop ? "sticky top-0 flex h-screen flex-col overflow-hidden" : "py-24")}>
         {/* Header row */}
         <div className={cn("gutter flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between", desktop ? "pt-28" : "")}>
-          <div>
+          <div className="lg:shrink-0">
             <SectionLabel index="02">Selected work</SectionLabel>
-            <h2 id="work-title" className="display mt-6 text-[clamp(3rem,8vw,7.5rem)]">
+            <h2 id="work-title" className="display mt-6 text-[clamp(3rem,8vw,7.5rem)] lg:whitespace-nowrap lg:text-[clamp(3rem,6.2vw,7rem)]">
               <MaskText>Moments, held</MaskText> <MaskText delay={0.12} className="italic">still.</MaskText>
             </h2>
           </div>
@@ -112,7 +112,7 @@ export function Work() {
           <div
             role="group"
             aria-label="Filter projects by event type"
-            className="no-scrollbar -mx-4 flex gap-2 overflow-x-auto px-4 lg:mx-0 lg:flex-wrap lg:justify-end lg:px-0"
+            className="no-scrollbar -mx-4 flex gap-2 overflow-x-auto px-4 lg:mx-0 lg:max-w-[46rem] lg:flex-wrap lg:justify-end lg:px-0"
           >
             {categories.map((c) => (
               <button
