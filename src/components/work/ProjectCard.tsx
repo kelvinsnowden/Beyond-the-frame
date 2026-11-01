@@ -23,7 +23,7 @@ const CAPTION = "3.5rem";
 export const formatLabel = { photo: "Photography", film: "Film", both: "Photo + Film" } as const;
 
 export function coverOf(p: Project): Media {
-  return media(p.cover, `${p.title} — ${p.category}`, p.aspect ?? [4, 5]);
+  return media(p.cover, `${p.title}, ${p.category}`, p.aspect ?? [4, 5]);
 }
 
 export function ProjectCard({

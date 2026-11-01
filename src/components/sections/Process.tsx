@@ -9,7 +9,7 @@ import { PillButton } from "@/components/ui/Magnetic";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
-/** How booking works — removes friction right before the enquiry form. */
+/** How booking works: removes friction right before the enquiry form. */
 export function Process() {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start 0.85", "end 0.6"] });

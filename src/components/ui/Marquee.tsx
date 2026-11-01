@@ -20,7 +20,7 @@ const wrap = (min: number, max: number, v: number) => {
 
 /**
  * Infinite marquee whose speed and direction respond to scroll velocity.
- * Purely decorative — hidden from assistive tech.
+ * Purely decorative: hidden from assistive tech.
  */
 export function Marquee({
   items,

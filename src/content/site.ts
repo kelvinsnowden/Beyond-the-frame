@@ -1,10 +1,10 @@
 /**
  * ─────────────────────────────────────────────────────────────────────────────
- *  SITE CONTENT — the single place to edit copy, contact details and projects.
+ *  SITE CONTENT: the single place to edit copy, contact details and projects.
  * ─────────────────────────────────────────────────────────────────────────────
  *
  *  Media keys (e.g. "hero", "work/wedding-01") refer to files you place in
- *  /public/media. Extensions are optional — "hero" matches hero.mp4, hero.mov,
+ *  /public/media. Extensions are optional: "hero" matches hero.mp4, hero.mov,
  *  hero.jpg, … After adding or changing files run:  npm run media
  *  Any key without a file renders an elegant, clearly-labelled empty plate.
  */
@@ -14,7 +14,7 @@ export const brand = {
   descriptor: "Event Photography & Film",
   /** One-line positioning used in metadata & footer. */
   tagline:
-    "Photography and film for weddings, traditional ceremonies and celebrations — directed with a cinematographer's eye.",
+    "Photography and film for weddings, traditional ceremonies and celebrations, directed with a cinematographer's eye.",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://beyond-the-frame-indol.vercel.app",
 } as const;
 
@@ -23,7 +23,7 @@ export const contact = {
   email: "hello@yourstudio.com",
   phone: "+254 700 000 000",
   phoneHref: "tel:+254700000000",
-  location: "Kenya — travelling for events",
+  location: "Kenya, travelling for events",
   responseNote: "Every enquiry is answered personally.",
   timezone: "Africa/Nairobi",
 } as const;
@@ -63,7 +63,7 @@ export const hero = {
   eyebrow: "Event photography & film",
   headline: ["It only", "happens", "once."],
   statement:
-    "Weddings, traditional ceremonies and celebrations — photographed and filmed with a director's eye, so the day you lived is the day you get to keep.",
+    "Weddings, traditional ceremonies and celebrations, photographed and filmed with a director's eye, so the day you lived is the day you get to keep.",
   primaryCta: { label: "Check your date", href: "#contact" },
   secondaryCta: { label: "See the work", href: "#work" },
 } as const;
@@ -74,10 +74,10 @@ export const studio = {
     word: "beyond the frame",
     partOfSpeech: "phr.",
     meaning:
-      "Everything a picture holds that its edges can't — the feeling in the room, the sound of the night, the people just out of shot.",
+      "Everything a picture holds that its edges can't: the feeling in the room, the sound of the night, the people just out of shot.",
   },
   statement:
-    "We are photographers and filmmakers for the days that matter most. We read the room, find the light and stay a step ahead of the moment — so nothing that matters slips past unseen.",
+    "We are photographers and filmmakers for the days that matter most. We read the room, find the light and stay a step ahead of the moment, so nothing that matters slips past unseen.",
   pillars: ["Stills", "Motion", "Story"],
   media: ["photos/groom-portrait", "photos/celebration-fans", "photos/couple-terrace"],
 } as const;
@@ -88,7 +88,7 @@ export type Project = {
   slug: string;
   title: string;
   category: Category;
-  /** "photo" | "film" | "both" — drives the badge & cursor label */
+  /** "photo" | "film" | "both": drives the badge & cursor label */
   format: "photo" | "film" | "both";
   year?: string;
   location?: string;
@@ -106,7 +106,7 @@ export type Project = {
 };
 
 /**
- * PROJECTS — titles describe the work itself; no invented clients.
+ * PROJECTS: titles describe the work itself; no invented clients.
  * TODO(client): add real event names, locations & stories where you have permission.
  */
 export const projects: Project[] = [
@@ -118,7 +118,7 @@ export const projects: Project[] = [
     year: "2026",
     tagline: "A Ruracio, in film.",
     summary:
-      "A Ruracio told in film — the arrival from the air, the hats and the walking sticks, the dancing, the vows under an umbrella, and the voice messages guests left for the couple.",
+      "A Ruracio told in film: the arrival from the air, the hats and the walking sticks, the dancing, the vows under an umbrella, and the voice messages guests left for the couple.",
     cover: "stills/ruracio-umbrella",
     preview: "clips/ruracio-preview",
     film: "films/waithera-kamau-ruracio",
@@ -130,7 +130,7 @@ export const projects: Project[] = [
     category: "Traditional",
     format: "photo",
     summary:
-      "Walking sticks, wide-brimmed hats and a family arriving together — a traditional ceremony photographed as it moved.",
+      "Walking sticks, wide-brimmed hats and a family arriving together. A traditional ceremony photographed as it moved.",
     cover: "photos/procession",
     gallery: ["photos/celebration-fans", "photos/couple-terrace", "photos/groom-portrait"],
   },
@@ -148,7 +148,7 @@ export const projects: Project[] = [
     title: "Graduation Day",
     category: "Celebrations",
     format: "photo",
-    summary: "Caps, gowns and bouquets bigger than the graduates — a proud family day on the red carpet.",
+    summary: "Caps, gowns and bouquets bigger than the graduates. A proud family day on the red carpet.",
     cover: "photos/grad-gowns",
     gallery: ["photos/grad-family"],
   },
@@ -157,7 +157,7 @@ export const projects: Project[] = [
     title: "The Reveal",
     category: "Celebrations",
     format: "photo",
-    summary: "A red carpet, a giant bow and one very big surprise — captured the moment it landed.",
+    summary: "A red carpet, a giant bow and one very big surprise, captured the moment it landed.",
     cover: "photos/gift-reveal",
     gallery: [],
   },
@@ -166,7 +166,7 @@ export const projects: Project[] = [
     title: "After Dark",
     category: "Couples",
     format: "photo",
-    summary: "Blossom, lamplight and lace — a couple's session lit for the night.",
+    summary: "Blossom, lamplight and lace: a couple's session lit for the night.",
     cover: "photos/night-portrait",
     gallery: ["photos/night-couple"],
   },
@@ -175,7 +175,7 @@ export const projects: Project[] = [
     title: "Awaiting",
     category: "Portraits",
     format: "photo",
-    summary: "A maternity portrait built in the studio — silk, ribbon and roses in one deep, warm tone.",
+    summary: "A maternity portrait built in the studio, with silk, ribbon and roses in one deep, warm tone.",
     cover: "photos/maternity",
     gallery: [],
   },
@@ -184,7 +184,7 @@ export const projects: Project[] = [
     title: "Studio Editorial",
     category: "Portraits",
     format: "photo",
-    summary: "Bold colour, clean light and strong poses — birthday and portrait sessions shot like a magazine spread.",
+    summary: "Bold colour, clean light and strong poses. Birthday and portrait sessions shot like a magazine spread.",
     cover: "photos/studio-orange",
     gallery: [
       "photos/studio-suit",
@@ -207,13 +207,13 @@ export type Service = {
   enquiryType: (typeof enquiry.eventTypes)[number];
 };
 
-/** Event types — copy describes scope, never invented results. */
+/** Event types: copy describes scope, never invented results. */
 export const services: Service[] = [
   {
     title: "Weddings",
     kicker: "Photo · Film · Both",
     description:
-      "From the quiet of getting ready to the last song of the night — documented honestly, directed lightly, edited like cinema.",
+      "From the quiet of getting ready to the last song of the night, documented honestly, directed lightly, edited like cinema.",
     includes: ["Full-day coverage", "Highlight film", "Online gallery", "Heirloom prints"],
     media: "photos/bride-terrace",
     enquiryType: "Wedding",
@@ -222,7 +222,7 @@ export const services: Service[] = [
     title: "Traditional",
     kicker: "Ruracio · Ngurario · Dowry ceremonies",
     description:
-      "Ceremonies full of meaning, music and family. We know the moments that matter — and we're in position before they happen.",
+      "Ceremonies full of meaning, music and family. We know the moments that matter, and we're in position before they happen.",
     includes: ["Photo & film coverage", "Aerial footage", "Audio guestbook film", "Family portraits"],
     media: "photos/procession",
     enquiryType: "Traditional ceremony",
@@ -240,7 +240,7 @@ export const services: Service[] = [
     title: "Portraits",
     kicker: "Couples · Maternity · Studio",
     description:
-      "Engagement shoots, maternity sessions and studio portraits — styled, lit and retouched with real care.",
+      "Engagement shoots, maternity sessions and studio portraits, styled, lit and retouched with real care.",
     includes: ["Location or studio", "Styling direction", "Retouched selects", "Print-ready files"],
     media: "photos/night-portrait",
     enquiryType: "Portrait session",
@@ -249,7 +249,7 @@ export const services: Service[] = [
     title: "Corporate",
     kicker: "Conferences · Galas · Launches",
     description:
-      "Discreet, professional coverage that gives your team months of content — speakers, guests, brand moments and recap films.",
+      "Discreet, professional coverage that gives your team months of content: speakers, guests, brand moments and recap films.",
     includes: ["Keynotes & panels", "Brand activations", "Recap films", "Fast-turnaround selects"],
     media: "",
     enquiryType: "Corporate",
@@ -259,7 +259,7 @@ export const services: Service[] = [
 export const principles = [
   {
     title: "Directed, not just documented.",
-    body: "We shape light, angles and timing so your event looks the way it felt — intentional, never accidental.",
+    body: "We shape light, angles and timing so your event looks the way it felt: intentional, never accidental.",
     media: "photos/night-couple",
   },
   {
@@ -269,7 +269,7 @@ export const principles = [
   },
   {
     title: "Invisible on the day.",
-    body: "A calm, discreet presence. Your guests stay present in the moment — we take care of the rest.",
+    body: "A calm, discreet presence. Your guests stay present in the moment. We take care of the rest.",
     media: "photos/celebration-fans",
   },
   {
@@ -295,7 +295,7 @@ export type Testimonial = {
 };
 
 /**
- * TESTIMONIALS — intentionally empty. Add real client words only.
+ * TESTIMONIALS: intentionally empty. Add real client words only.
  * The section hides itself automatically until at least one is added.
  */
 export const testimonials: Testimonial[] = [];
@@ -304,5 +304,5 @@ export const enquiry = {
   eventTypes: ["Wedding", "Traditional ceremony", "Celebration", "Corporate", "Portrait session", "Something else"],
   coverage: ["Photography", "Film", "Both"],
   // TODO(client): adjust currency & bands to match your pricing.
-  budgets: ["Under KSh 50k", "KSh 50k – 100k", "KSh 100k – 250k", "KSh 250k +", "Not sure yet"],
+  budgets: ["Under KSh 50k", "KSh 50k-100k", "KSh 100k-250k", "KSh 250k +", "Not sure yet"],
 } as const;

@@ -56,7 +56,7 @@ export function Header() {
               : "border-b border-transparent",
           )}
         >
-          <a href="#top" className="group flex items-baseline gap-2" aria-label={`${brand.name} — home`}>
+          <a href="#top" className="group flex items-baseline gap-2" aria-label={`${brand.name}, home`}>
             <Wordmark className="text-[1.45rem] leading-none md:text-[1.75rem]" />
           </a>
 

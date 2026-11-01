@@ -3,12 +3,12 @@ import { join } from "node:path";
 import { ImageResponse } from "next/og";
 import { brand, hero } from "@/content/site";
 
-export const alt = `${brand.name} — ${brand.descriptor}`;
+export const alt = `${brand.name} | ${brand.descriptor}`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
 /** Share card: the lead hero photograph with the headline set over it.
- *  _og/og-photo.jpg is a baseline (non-progressive) 1200×630 crop — Satori mis-decodes progressive JPEGs. */
+ *  _og/og-photo.jpg is a baseline (non-progressive) 1200×630 crop: Satori mis-decodes progressive JPEGs. */
 /** Fetch a TTF from Google Fonts (Satori can't read woff2). Falls back silently. */
 async function googleFont(family: string, italic: boolean) {
   try {

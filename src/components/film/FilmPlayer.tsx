@@ -104,7 +104,7 @@ export function FilmPlayer({
           ref={wrap}
           role="dialog"
           aria-modal="true"
-          aria-label={`${title} — film`}
+          aria-label={`${title}, film`}
           className={cn("fixed inset-0 z-[70] bg-black", idle && playing && "cursor-none")}
           initial={{ clipPath: "inset(50% 0% 50% 0%)" }}
           animate={{ clipPath: "inset(0% 0% 0% 0%)" }}

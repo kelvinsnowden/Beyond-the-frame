@@ -34,7 +34,7 @@ export function Contact() {
           <FadeIn>
             <p className="max-w-sm text-xl leading-relaxed text-bone/90">
               Tell us about your event. We&rsquo;ll confirm availability and come back with a
-              tailored proposal — no obligation, no pressure.
+              tailored proposal. No obligation, no pressure.
             </p>
           </FadeIn>
 

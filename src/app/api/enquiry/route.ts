@@ -36,7 +36,7 @@ export async function POST(req: Request) {
 
   const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "local";
   if (rateLimited(ip)) {
-    return Response.json({ ok: false, error: "Too many requests — please try again shortly." }, { status: 429 });
+    return Response.json({ ok: false, error: "Too many requests. Please try again shortly." }, { status: 429 });
   }
 
   const errors = validateEnquiry(body);
@@ -45,16 +45,16 @@ export async function POST(req: Request) {
   const e = body as Enquiry;
   const rows: [string, string][] = [
     ["Event", e.eventType],
-    ["Coverage", e.coverage || "—"],
+    ["Coverage", e.coverage || "-"],
     ["Date", e.dateFlexible ? "Not set yet" : e.date],
-    ["Venue / location", e.venue || "—"],
-    ["Guests", e.guests || "—"],
-    ["Budget", e.budget || "—"],
+    ["Venue / location", e.venue || "-"],
+    ["Guests", e.guests || "-"],
+    ["Budget", e.budget || "-"],
     ["Name", e.name],
     ["Email", e.email],
-    ["Phone", e.phone || "—"],
+    ["Phone", e.phone || "-"],
   ];
-  const subject = `New enquiry — ${e.eventType}${e.dateFlexible ? "" : `, ${e.date}`} — ${e.name}`;
+  const subject = `New enquiry: ${e.eventType}${e.dateFlexible ? "" : `, ${e.date}`}, from ${e.name}`;
 
   const { RESEND_API_KEY, ENQUIRY_TO_EMAIL, ENQUIRY_FROM_EMAIL, ENQUIRY_WEBHOOK_URL } = process.env;
   const tasks: Promise<Response>[] = [];
@@ -90,7 +90,7 @@ export async function POST(req: Request) {
 
   if (tasks.length === 0) {
     if (process.env.NODE_ENV !== "production") {
-      console.info("[enquiry] (no delivery configured — logged only)\n", subject, "\n", rows, "\n", e.message);
+      console.info("[enquiry] (no delivery configured, logged only)\n", subject, "\n", rows, "\n", e.message);
       return Response.json({ ok: true, delivered: false });
     }
     return Response.json(

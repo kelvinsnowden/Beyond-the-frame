@@ -1,12 +1,12 @@
 #!/usr/bin/env node
 /**
- * Media pipeline — run with `npm run media` after adding files to /public/media.
+ * Media pipeline: run with `npm run media` after adding files to /public/media.
  *
  *  • Images: reads true dimensions and makes a tiny blur placeholder.
  *    (Delivery resizing / AVIF / WebP is handled by next/image at request time.)
  *  • Videos: encodes web-optimised, muted H.264 MP4s (1920px + 960px for mobile),
  *    moves the moov atom for fast start, and extracts a poster frame.
- *  • films/*: full films with sound, already web-encoded — served as-is
+ *  • films/*: full films with sound, already web-encoded: served as-is
  *    (poster + blur only). Keep each under ~95 MB for git hosting.
  *  • Writes src/content/media.generated.json, keyed by path without extension.
  *
@@ -108,7 +108,7 @@ for (const file of files) {
       };
       console.log(`  video  ${key}  ${width}×${height}  ${duration.toFixed(1)}s`);
     } else if (ext === ".heic" || ext === ".heif") {
-      console.warn(`  skip   ${rel} — convert HEIC to JPEG first`);
+      console.warn(`  skip   ${rel}: convert HEIC to JPEG first`);
     }
   } catch (e) {
     console.warn(`  error  ${rel}: ${e.message.split("\n")[0]}`);

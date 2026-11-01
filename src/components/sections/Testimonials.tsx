@@ -31,7 +31,7 @@ export function Testimonials() {
     return (
       <section aria-hidden className="gutter py-16">
         <div className="label border border-dashed border-line-strong p-6 text-mute">
-          Dev note — Testimonials section is hidden until real client words are added to
+          Dev note: Testimonials section is hidden until real client words are added to
           <code className="mx-1 text-bone">testimonials</code> in src/content/site.ts.
         </div>
       </section>

@@ -42,7 +42,7 @@ export function Studio() {
         className="display mt-16 max-w-[18ch] text-[clamp(2.4rem,6.4vw,6.75rem)] leading-[0.98] tracking-[-0.03em] md:mt-24 lg:max-w-[20ch]"
       />
 
-      {/* Collage — three plates moving at different depths */}
+      {/* Collage: three plates moving at different depths */}
       <div ref={collage} className="relative mt-24 grid grid-cols-12 gap-3 md:mt-40 md:gap-6">
         <motion.div style={{ y: slow }} className="col-span-8 md:col-span-5">
           <ClipReveal>

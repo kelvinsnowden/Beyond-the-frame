@@ -15,7 +15,7 @@ const EASE = [0.16, 1, 0.3, 1] as const;
 /**
  * Full-screen project view. The card's cover morphs into the hero
  * (shared layout), then the story and gallery unfold beneath it.
- * Gallery images are framed at their true aspect ratio — never cropped.
+ * Gallery images are framed at their true aspect ratio: never cropped.
  */
 export function ProjectViewer({
   slug,
@@ -51,7 +51,7 @@ export function ProjectViewer({
     return () => window.removeEventListener("keydown", onKey);
   }, [project, next, prev, onClose, onNavigate]);
 
-  const film = project?.film ? media(project.film, `${project.title} — film`, [16, 9]) : null;
+  const film = project?.film ? media(project.film, `${project.title}, film`, [16, 9]) : null;
 
   return (
     <AnimatePresence>
@@ -128,7 +128,7 @@ export function ProjectViewer({
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.5, duration: 0.8, ease: EASE }}
                   >
-                    {project.category} — {formatLabel[project.format]}
+                    {project.category} · {formatLabel[project.format]}
                   </motion.p>
                   <h2 id="viewer-title" className="display overflow-hidden text-[clamp(2.75rem,8vw,8rem)]">
                     <motion.span
@@ -183,14 +183,14 @@ export function ProjectViewer({
                       style={{ aspectRatio: `${film.width}/${film.height}`, maxHeight: "85svh" }}
                       sizes="100vw"
                     />
-                    <figcaption className="label mt-3 text-mute">Film — sound on</figcaption>
+                    <figcaption className="label mt-3 text-mute">Film · sound on</figcaption>
                   </figure>
                 )}
 
-                {/* Gallery — editorial rhythm: full, pair, full… */}
+                {/* Gallery: editorial rhythm: full, pair, full… */}
                 <div className="grid grid-cols-1 gap-4 py-10 md:grid-cols-2 md:gap-6">
                   {project.gallery.map((key, i) => {
-                    const m = media(key, `${project.title} — image ${i + 1}`, i % 3 === 0 ? [3, 2] : [4, 5]);
+                    const m = media(key, `${project.title}, image ${i + 1}`, i % 3 === 0 ? [3, 2] : [4, 5]);
                     const full = m.width / m.height > 1.2 && i % 3 === 0;
                     return (
                       <motion.figure

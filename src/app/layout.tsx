@@ -24,11 +24,11 @@ const mono = JetBrains_Mono({
   display: "swap",
 });
 
-const title = `${brand.name} — ${brand.descriptor}`;
+const title = `${brand.name} | ${brand.descriptor}`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(brand.url),
-  title: { default: title, template: `%s — ${brand.name}` },
+  title: { default: title, template: `%s | ${brand.name}` },
   description: brand.tagline,
   keywords: [
     "event photographer",

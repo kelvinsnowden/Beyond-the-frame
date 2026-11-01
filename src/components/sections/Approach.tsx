@@ -11,7 +11,7 @@ import { cn } from "@/lib/cn";
 const EASE = [0.16, 1, 0.3, 1] as const;
 
 /**
- * Why us — a sticky contact-sheet frame on the left develops a new image
+ * Why us: a sticky contact-sheet frame on the left develops a new image
  * as each principle scrolls into focus on the right.
  */
 export function Approach() {

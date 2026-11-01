@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 
-/** A running SMPTE-style timecode — a small "camera is rolling" detail. */
+/** A running SMPTE-style timecode: a small "camera is rolling" detail. */
 export function Timecode({ fps = 24, className }: { fps?: number; className?: string }) {
   const ref = useRef<HTMLSpanElement>(null);
   useEffect(() => {

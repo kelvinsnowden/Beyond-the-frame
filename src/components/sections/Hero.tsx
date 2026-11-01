@@ -144,7 +144,7 @@ export function Hero() {
             </motion.div>
           </motion.div>
 
-          {/* Legibility — kept above the frames in their own layer */}
+          {/* Legibility: kept above the frames in their own layer */}
           <div className="pointer-events-none absolute inset-0 z-10" aria-hidden>
             <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/35 to-ink/10" />
             <div className="absolute inset-0 bg-gradient-to-r from-ink/75 via-ink/25 to-transparent" />
@@ -173,7 +173,7 @@ export function Hero() {
         <div className="crop-marks absolute inset-x-[clamp(1rem,3.2vw,3rem)] top-10 bottom-6 hidden opacity-20 md:block" />
       </motion.div>
 
-      {/* Frame selector — story-style progress, clickable */}
+      {/* Frame selector: story-style progress, clickable */}
       <motion.div
         role="group"
         aria-label="Hero photographs"

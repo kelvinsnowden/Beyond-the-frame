@@ -46,7 +46,7 @@ export function Services() {
           </h2>
         </div>
         <FadeIn className="self-end text-base leading-relaxed text-mute md:col-span-4 md:col-start-9">
-          Every booking can include photography, film or both — planned as one, so every
+          Every booking can include photography, film or both, planned as one, so every
           image and every frame tells the same story.
         </FadeIn>
       </div>

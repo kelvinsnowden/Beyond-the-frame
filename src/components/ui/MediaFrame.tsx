@@ -15,9 +15,9 @@ type Props = {
   /** Focal point for cover crops, e.g. "50% 30%". */
   focal?: string;
   /**
-   * ambient — muted loop while visible (backgrounds, hero)
-   * hover   — plays only while `active` is true (project previews)
-   * controls — native controls, user-initiated (project films)
+   * ambient: muted loop while visible (backgrounds, hero)
+   * hover  : plays only while `active` is true (project previews)
+   * controls: native controls, user-initiated (project films)
    */
   videoMode?: "ambient" | "hover" | "controls";
   active?: boolean;

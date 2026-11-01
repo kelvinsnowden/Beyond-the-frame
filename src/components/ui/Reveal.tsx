@@ -154,7 +154,7 @@ export function ClipReveal({
   );
 }
 
-/** Section index label, e.g. (02) — Selected work */
+/** Section index label, e.g. (02): Selected work */
 export function SectionLabel({ index, children }: { index: string; children: ReactNode }) {
   return (
     <div className="label flex items-center gap-3 text-mute">

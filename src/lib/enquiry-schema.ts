@@ -11,7 +11,7 @@ export type Enquiry = {
   email: string;
   phone: string;
   message: string;
-  /** Honeypot — must stay empty. */
+  /** Honeypot: must stay empty. */
   website?: string;
 };
 

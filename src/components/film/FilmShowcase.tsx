@@ -11,7 +11,7 @@ import { MaskText, SectionLabel } from "@/components/ui/Reveal";
 import { FilmPlayer } from "./FilmPlayer";
 
 /**
- * "Now showing" — the featured film. A muted loop widens to full bleed as it
+ * "Now showing": the featured film. A muted loop widens to full bleed as it
  * scrolls into view; one click opens the full film with sound.
  */
 export function FilmShowcase() {
@@ -24,7 +24,7 @@ export function FilmShowcase() {
   const scale = useTransform(scrollYProgress, [0, 1], [1.25, 1]);
 
   if (!featured?.film) return null;
-  const film = media(featured.film, `${featured.title} — film`);
+  const film = media(featured.film, `${featured.title}, film`);
   if (film.kind !== "video") return null;
   const loop = media(featured.preview ?? featured.film, "", [16, 9]);
   const minutes = film.duration ? Math.round(film.duration / 60) : 0;
