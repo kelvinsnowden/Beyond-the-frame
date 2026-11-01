@@ -164,6 +164,15 @@ export const projects: Project[] = [
     gallery: [],
   },
   {
+    slug: "the-birthday-shoot",
+    title: "The Birthday Shoot",
+    category: "Celebrations",
+    format: "photo",
+    summary: "Gold, tulle and a cake to match. A birthday celebrated with a portrait session by the pool and in the garden.",
+    cover: "photos/birthday-poolside",
+    gallery: ["photos/birthday-cake", "photos/birthday-seated", "photos/birthday-garden"],
+  },
+  {
     slug: "after-dark",
     title: "After Dark",
     category: "Couples",
@@ -180,6 +189,15 @@ export const projects: Project[] = [
     summary: "A maternity portrait built in the studio, with silk, ribbon and roses in one deep, warm tone.",
     cover: "photos/maternity",
     gallery: [],
+  },
+  {
+    slug: "portrait-sessions",
+    title: "Portrait Sessions",
+    category: "Portraits",
+    format: "photo",
+    summary: "Warm light, a painted landscape and easy direction. Portraits for individuals, friends and anyone who wants to feel their best.",
+    cover: "photos/portrait-pearls",
+    gallery: ["photos/portrait-beige", "photos/friends-garden"],
   },
   {
     slug: "studio-editorial",
@@ -320,7 +338,7 @@ export const booking = {
       "Portrait session": "photos/studio-orange",
       "Something else": "photos/night-portrait",
     },
-    teaser: ["photos/bride-terrace", "photos/procession", "photos/gift-reveal", "photos/night-couple"],
+    teaser: ["photos/bride-terrace", "photos/procession", "photos/birthday-poolside", "photos/gift-reveal", "photos/night-couple"],
     done: "stills/ruracio-umbrella",
   },
 } as const;

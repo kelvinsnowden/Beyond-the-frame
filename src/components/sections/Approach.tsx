@@ -45,7 +45,7 @@ export function Approach() {
                   }}
                   transition={{ duration: 1.2, ease: [0.76, 0, 0.24, 1] }}
                 >
-                  <MediaFrame media={media(p.media, p.title, [4, 5])} sizes="42vw" eager className="absolute inset-0" />
+                  <MediaFrame media={media(p.media, p.title, [4, 5])} sizes="42vw" className="absolute inset-0" />
                 </motion.div>
               ))}
               <div className="crop-marks pointer-events-none absolute inset-4 opacity-40" aria-hidden />
