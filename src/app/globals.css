@@ -120,6 +120,35 @@
     }
   }
 
+  /* Light scope (booking flow): flips the palette tokens so every utility inside inverts. */
+  .theme-light {
+    --color-ink: #f4f1ec;
+    --color-ink-2: #ffffff;
+    --color-ink-3: #ece8e1;
+    --color-bone: #0b0a09;
+    --color-bone-2: #2a2723;
+    --color-mute: #5f5a52;
+    --color-dim: #9a948a;
+    --color-line: rgb(11 10 9 / 0.1);
+    --color-line-strong: rgb(11 10 9 / 0.18);
+    color: var(--color-bone);
+    color-scheme: light;
+  }
+  /* Back to the darkroom palette (used over photographs inside light areas). */
+  .theme-dark {
+    --color-ink: #0b0a09;
+    --color-ink-2: #12110f;
+    --color-ink-3: #1b1916;
+    --color-bone: #ede7dd;
+    --color-bone-2: #d9d2c5;
+    --color-mute: #8f897f;
+    --color-dim: #5f5a53;
+    --color-line: rgb(237 231 221 / 0.12);
+    --color-line-strong: rgb(237 231 221 / 0.24);
+    color: var(--color-bone);
+    color-scheme: dark;
+  }
+
   .no-scrollbar {
     scrollbar-width: none;
   }

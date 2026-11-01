@@ -10,7 +10,6 @@ import {
   Film,
   MessageCircle,
   Phone,
-  Sparkles,
   X,
 } from "lucide-react";
 import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
@@ -279,12 +278,12 @@ export function BookingPopup() {
             transition={{ duration: 0.8, ease: EASE }}
             className="fixed inset-x-3 bottom-20 z-[45] sm:bottom-6 sm:left-auto sm:right-6 sm:w-[380px]"
           >
-            <div className="relative overflow-hidden rounded-2xl border border-line-strong bg-ink-2/95 shadow-2xl shadow-black/60 backdrop-blur-xl">
+            <div className="theme-light relative overflow-hidden rounded-2xl border border-line bg-ink-2 shadow-2xl shadow-black/50">
               <button
                 type="button"
                 onClick={close}
                 aria-label="Dismiss"
-                className="absolute right-3 top-3 z-10 flex size-8 items-center justify-center rounded-full bg-ink/60 text-bone/80 hover:text-bone"
+                className="absolute right-3 top-3 z-10 flex size-8 items-center justify-center rounded-full bg-ink text-bone/70 hover:text-bone"
               >
                 <X className="size-4" />
               </button>
@@ -332,14 +331,14 @@ export function BookingPopup() {
               aria-labelledby="booking-q"
               tabIndex={-1}
               data-lenis-prevent
-              className="relative flex max-h-[94svh] w-full flex-col overflow-hidden rounded-t-3xl border border-line-strong bg-ink-2 shadow-2xl shadow-black/70 outline-none sm:max-h-[min(720px,92vh)] sm:max-w-5xl sm:flex-row sm:rounded-3xl"
+              className="theme-light relative flex max-h-[94svh] w-full flex-col overflow-hidden rounded-t-3xl border border-line bg-ink-2 shadow-2xl shadow-black/70 outline-none sm:max-h-[min(720px,92vh)] sm:max-w-5xl sm:flex-row sm:rounded-3xl"
               initial={{ clipPath: "inset(100% 0% 0% 0% round 24px)" }}
               animate={{ clipPath: "inset(0% 0% 0% 0% round 24px)" }}
               exit={{ clipPath: "inset(100% 0% 0% 0% round 24px)" }}
               transition={{ duration: 0.9, ease: SHUTTER }}
             >
               {/* Visual panel */}
-              <div className="relative h-36 shrink-0 overflow-hidden sm:h-auto sm:w-[42%]">
+              <div className="theme-dark relative h-36 shrink-0 overflow-hidden sm:h-auto sm:w-[42%]">
                 <AnimatePresence initial={false} mode="popLayout">
                   <motion.div
                     key={visual}
@@ -352,7 +351,7 @@ export function BookingPopup() {
                     <MediaFrame media={media(visual, "", [4, 5])} sizes="(min-width: 640px) 420px, 100vw" focal="50% 30%" className="absolute inset-0" />
                   </motion.div>
                 </AnimatePresence>
-                <div className="absolute inset-0 bg-gradient-to-t from-ink-2/90 via-transparent to-ink/30 sm:bg-gradient-to-r sm:from-transparent sm:via-transparent sm:to-ink-2/40" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-black/35" />
                 <div className="label absolute left-4 top-4 flex items-center gap-2 text-bone/85">
                   <span className="size-1.5 rounded-full bg-safelight motion-safe:animate-[rec-pulse_1.2s_ease-in-out_infinite]" />
                   {phase === "done" ? "That's a wrap" : `Frame ${String(step + 1).padStart(2, "0")}`}
@@ -450,14 +449,14 @@ export function BookingPopup() {
                           type="button"
                           onClick={submit}
                           disabled={sending}
-                          className="group relative flex h-12 items-center gap-2 overflow-hidden rounded-full bg-safelight pl-6 pr-2 text-sm font-medium text-bone disabled:opacity-70"
+                          className="group relative flex h-12 items-center gap-2 overflow-hidden rounded-full bg-safelight pl-6 pr-2 text-sm font-medium text-white disabled:opacity-70"
                         >
                           {sending ? "Sending…" : "Book with us"}
                           <span className="flex size-8 items-center justify-center rounded-full bg-bone text-ink">
                             {sending ? (
                               <span className="size-3 animate-spin rounded-full border-2 border-ink border-t-transparent" />
                             ) : (
-                              <Sparkles className="size-4" />
+                              <Camera className="size-4" />
                             )}
                           </span>
                         </button>
@@ -473,7 +472,7 @@ export function BookingPopup() {
                   <>
                     <motion.div
                       key="flash"
-                      className="pointer-events-none absolute inset-0 z-20 bg-bone"
+                      className="pointer-events-none absolute inset-0 z-20 bg-black"
                       initial={{ opacity: 0.95 }}
                       animate={{ opacity: 0 }}
                       transition={{ duration: 0.7, ease: "easeOut" }}
@@ -526,6 +525,7 @@ function StepBody({
                   on ? "border-bone" : "border-line-strong hover:border-bone/60",
                 )}
               >
+                <span className="theme-dark absolute inset-0">
                 {key ? (
                   <MediaFrame media={media(key, "", [4, 3])} sizes="200px" focal="50% 30%" className="absolute inset-0 transition-transform duration-700 ease-expo group-hover:scale-110" />
                 ) : (
@@ -536,6 +536,7 @@ function StepBody({
                   {i + 1}
                 </span>
                 <span className="display absolute bottom-2.5 left-3 right-3 text-xl leading-tight sm:text-2xl">{t}</span>
+                </span>
                 <AnimatePresence>
                   {on && (
                     <motion.span
@@ -543,7 +544,7 @@ function StepBody({
                       animate={{ scale: 1, rotate: 0 }}
                       exit={{ scale: 0 }}
                       transition={{ type: "spring", stiffness: 500, damping: 20 }}
-                      className="absolute right-2.5 top-2.5 flex size-7 items-center justify-center rounded-full bg-safelight"
+                      className="absolute right-2.5 top-2.5 flex size-7 items-center justify-center rounded-full bg-safelight text-white"
                     >
                       <Check className="size-4" />
                     </motion.span>
@@ -570,7 +571,7 @@ function StepBody({
               value={d.date}
               disabled={d.dateFlexible}
               onChange={(e) => set("date", e.target.value)}
-              className="h-16 w-full rounded-xl border border-line-strong bg-ink px-5 text-xl text-bone outline-none [color-scheme:dark] focus:border-bone disabled:opacity-40"
+              className="h-16 w-full rounded-xl border border-line-strong bg-ink px-5 text-xl text-bone outline-none [color-scheme:light] focus:border-bone disabled:opacity-40"
             />
           </label>
           <button
@@ -883,7 +884,7 @@ function GuestDots({ count }: { count: number }) {
           key={i}
           className="block size-2.5 rounded-full"
           animate={{
-            backgroundColor: i < lit ? "rgb(237 231 221)" : "rgb(237 231 221 / 0.12)",
+            backgroundColor: i < lit ? "rgb(11 10 9)" : "rgb(11 10 9 / 0.1)",
             scale: i === lit - 1 ? [1, 1.6, 1] : 1,
           }}
           transition={{ duration: 0.3 }}
@@ -923,7 +924,7 @@ function Done({ name, phone, waText, onClose }: { name: string; phone: string; w
         initial={{ scale: 0, rotate: -90 }}
         animate={{ scale: 1, rotate: 0 }}
         transition={{ type: "spring", stiffness: 300, damping: 15, delay: 0.3 }}
-        className="flex size-16 items-center justify-center rounded-full bg-safelight"
+        className="flex size-16 items-center justify-center rounded-full bg-safelight text-white"
       >
         <Check className="size-8" />
       </motion.span>
@@ -940,6 +941,7 @@ function Done({ name, phone, waText, onClose }: { name: string; phone: string; w
           href={`${contact.whatsappHref}?text=${encodeURIComponent(waText)}`}
           target="_blank"
           rel="noreferrer"
+          data-autofocus
           className="inline-flex h-12 items-center gap-2 rounded-full bg-bone px-6 text-sm font-medium text-ink"
         >
           <MessageCircle className="size-4" /> Can&rsquo;t wait? WhatsApp us
@@ -967,7 +969,7 @@ function Confetti() {
           x: Math.cos(angle) * dist,
           y: Math.sin(angle) * dist * 0.7,
           r: ((i * 97) % 540) - 270,
-          c: ["#d9482f", "#ede7dd", "#8f897f", "#c98b4f", "#ede7dd"][i % 5],
+          c: ["#d9482f", "#0b0a09", "#c98b4f", "#8f897f", "#d9482f"][i % 5],
           w: 6 + (i % 4) * 3,
           d: (i % 7) * 0.025,
         };
