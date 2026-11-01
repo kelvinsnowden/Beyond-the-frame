@@ -66,7 +66,7 @@ export const hero = {
   headline: ["It only", "happens", "once."],
   statement:
     "Weddings, traditional ceremonies and celebrations, photographed and filmed with a director's eye, so the day you lived is the day you get to keep.",
-  primaryCta: { label: "Check your date", href: "#contact" },
+  primaryCta: { label: "Book with us", href: "#contact" },
   secondaryCta: { label: "See the work", href: "#work" },
 } as const;
 

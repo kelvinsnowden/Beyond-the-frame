@@ -226,7 +226,7 @@ export function EnquiryForm() {
                 className="group relative flex h-16 items-center justify-between gap-6 overflow-hidden rounded-full bg-bone pl-8 pr-2 text-ink disabled:opacity-70 sm:min-w-[300px]"
               >
                 <span className="relative z-10 text-base font-medium">
-                  {status === "sending" ? "Sending…" : "Check availability"}
+                  {status === "sending" ? "Sending…" : "Book with us"}
                 </span>
                 <span className="relative z-10 flex size-12 items-center justify-center rounded-full bg-ink text-bone transition-transform duration-500 ease-expo group-hover:rotate-45">
                   {status === "sending" ? <Loader2 className="size-5 animate-spin" /> : <ArrowUpRight className="size-5" />}

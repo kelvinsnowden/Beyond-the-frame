@@ -172,7 +172,7 @@ export function Work() {
                   <span className="italic">could be next.</span>
                 </span>
                 <span className="flex items-center justify-between text-sm">
-                  Check your date
+                  Book with us
                   <span className="flex size-12 items-center justify-center rounded-full bg-bone text-ink transition-transform duration-500 ease-expo group-hover:rotate-45 group-hover:scale-110">
                     <ArrowUpRight className="size-5" />
                   </span>
