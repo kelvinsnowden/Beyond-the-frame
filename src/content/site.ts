@@ -21,10 +21,10 @@ export const brand = {
 export const contact = {
   // TODO(client): replace every value below with real details.
   email: "hello@yourstudio.com",
-  phone: "+254 700 000 000",
-  phoneHref: "tel:+254700000000",
+  phone: "+254 742 182 160",
+  phoneHref: "tel:+254742182160",
   /** wa.me link: country code + number, digits only. */
-  whatsappHref: "https://wa.me/254700000000",
+  whatsappHref: "https://wa.me/254742182160",
   location: "Kenya, travelling for events",
   responseNote: "Every enquiry is answered personally.",
   timezone: "Africa/Nairobi",
