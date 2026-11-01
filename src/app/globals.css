@@ -1,26 +1,172 @@
 @import "tailwindcss";
+@import "lenis/dist/lenis.css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/*
+ * Design tokens
+ * A darkroom palette: warm near-black, bone-white paper and a single
+ * safelight red used sparingly. The photography supplies the colour.
+ */
+@theme {
+  --color-ink: #0b0a09;
+  --color-ink-2: #12110f;
+  --color-ink-3: #1b1916;
+  --color-bone: #ede7dd;
+  --color-bone-2: #d9d2c5;
+  --color-mute: #8f897f;
+  --color-dim: #5f5a53;
+  --color-line: rgb(237 231 221 / 0.12);
+  --color-line-strong: rgb(237 231 221 / 0.24);
+  --color-safelight: #d9482f;
+
+  --font-display: var(--font-serif), "Times New Roman", serif;
+  --font-sans: var(--font-grotesk), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-code), ui-monospace, monospace;
+
+  --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-film: cubic-bezier(0.76, 0, 0.24, 1);
+
+  --breakpoint-xs: 26rem;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+@layer base {
+  html {
+    background: var(--color-ink);
+    color-scheme: dark;
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+  }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  body {
+    background: var(--color-ink);
+    color: var(--color-bone);
+    font-family: var(--font-sans);
+    font-feature-settings: "ss01", "cv11";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: clip;
+  }
+
+  ::selection {
+    background: var(--color-safelight);
+    color: var(--color-bone);
+  }
+
+  :focus-visible {
+    outline: 1px solid var(--color-bone);
+    outline-offset: 4px;
+    border-radius: 2px;
+  }
+
+  /* Native cursor stays available for text inputs & when the custom cursor is off */
+  html.has-custom-cursor,
+  html.has-custom-cursor a,
+  html.has-custom-cursor button,
+  html.has-custom-cursor [role="button"] {
+    cursor: none;
+  }
+  html.has-custom-cursor input,
+  html.has-custom-cursor textarea,
+  html.has-custom-cursor select {
+    cursor: text;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer components {
+  .label {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .display {
+    font-family: var(--font-display);
+    font-weight: 400;
+    letter-spacing: -0.035em;
+    line-height: 0.88;
+  }
+
+  .gutter {
+    padding-inline: clamp(1rem, 3.2vw, 3rem);
+  }
+
+  .text-outline {
+    color: transparent;
+    -webkit-text-stroke: 1px var(--color-line-strong);
+  }
+
+  /* Hairline crop marks used on frames & placeholders */
+  .crop-marks {
+    --m: 14px;
+    background:
+      linear-gradient(var(--color-bone), var(--color-bone)) top left / var(--m) 1px,
+      linear-gradient(var(--color-bone), var(--color-bone)) top left / 1px var(--m),
+      linear-gradient(var(--color-bone), var(--color-bone)) top right / var(--m) 1px,
+      linear-gradient(var(--color-bone), var(--color-bone)) top right / 1px var(--m),
+      linear-gradient(var(--color-bone), var(--color-bone)) bottom left / var(--m) 1px,
+      linear-gradient(var(--color-bone), var(--color-bone)) bottom left / 1px var(--m),
+      linear-gradient(var(--color-bone), var(--color-bone)) bottom right / var(--m) 1px,
+      linear-gradient(var(--color-bone), var(--color-bone)) bottom right / 1px var(--m);
+    background-repeat: no-repeat;
+  }
+
+  /* Responsive focal points for hero crops */
+  .hero-frame {
+    --fp: var(--fpm, 50% 50%);
+  }
+  @media (min-width: 768px) {
+    .hero-frame {
+      --fp: var(--fpd, 50% 50%);
+    }
+  }
+
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Film grain — a static noise tile moved in steps (cheap, GPU friendly) */
+@keyframes grain {
+  0%, 100% { transform: translate(0, 0); }
+  10% { transform: translate(-5%, -10%); }
+  30% { transform: translate(3%, -15%); }
+  50% { transform: translate(12%, 9%); }
+  70% { transform: translate(9%, 4%); }
+  90% { transform: translate(-1%, 7%); }
+}
+
+@keyframes hero-progress {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+@keyframes rec-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.25; }
+}
+
+@keyframes scroll-line {
+  0% { transform: scaleY(0); transform-origin: top; }
+  45% { transform: scaleY(1); transform-origin: top; }
+  55% { transform: scaleY(1); transform-origin: bottom; }
+  100% { transform: scaleY(0); transform-origin: bottom; }
+}
+
+@keyframes placeholder-drift {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
 }

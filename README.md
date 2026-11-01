@@ -1,36 +1,43 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Beyond the Frame — event photography & film
 
-## Getting Started
-
-First, run the development server:
+Landing page built with Next.js 16 (App Router), React 19, TypeScript, Tailwind CSS v4,
+Motion and Lenis.
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev        # http://localhost:3000
+npm run build && npm start
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Editing content
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+All copy, contact details, services, projects and testimonials live in
+**`src/content/site.ts`**. Items marked `TODO(client)` need real details
+(email, phone, socials, budget bands, project names). The testimonials section
+stays hidden until real quotes are added.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Adding photos & films
 
-## Learn More
+1. Put files in `public/media/` (sub-folders are fine):
+   - `photos/…jpg` — sRGB JPEGs, ~3200px on the long edge.
+   - `clips/…mp4` — short muted loops (hover previews / ambient). Encoded automatically.
+   - `films/…mp4` — full films with sound, **already web-encoded** (H.264 + AAC,
+     faststart, under ~95 MB each). Served as-is.
+2. Run `npm run media` (needs `ffmpeg`). It reads true dimensions, makes blur
+   placeholders and posters, encodes clips to `public/media/_web/`, and writes
+   `src/content/media.generated.json`.
+3. Reference files in `site.ts` by path without extension, e.g. `"photos/procession"`.
+   Missing files render as labelled “awaiting media” plates, so layouts never break.
 
-To learn more about Next.js, take a look at the following resources:
+## Enquiry form
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+`POST /api/enquiry` validates and delivers each enquiry. Copy `.env.example` to
+`.env.local` and set either:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- `RESEND_API_KEY` + `ENQUIRY_TO_EMAIL` (email via Resend), and/or
+- `ENQUIRY_WEBHOOK_URL` (JSON to Zapier, Make, Slack, a CRM…).
 
-## Deploy on Vercel
+Without either, development logs enquiries to the console and production shows
+visitors the direct email address instead.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Also set `NEXT_PUBLIC_SITE_URL` for canonical / Open Graph URLs.
