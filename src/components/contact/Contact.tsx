@@ -15,7 +15,7 @@ export function Contact() {
   const [copied, setCopied] = useState(false);
 
   return (
-    <section id="contact" ref={ref} aria-labelledby="contact-title" className="gutter relative overflow-clip pb-16 pt-28 md:pt-40">
+    <section id="contact" ref={ref} aria-labelledby="contact-title" className="gutter relative overflow-clip pb-16 pt-16 md:pt-40">
       <SectionLabel index={testimonials.length ? "07" : "06"}>Book your date</SectionLabel>
 
       <motion.h2
@@ -29,7 +29,7 @@ export function Contact() {
         </MaskText>
       </motion.h2>
 
-      <div className="mt-16 grid gap-16 md:mt-24 lg:grid-cols-12">
+      <div className="mt-10 grid gap-12 md:mt-24 md:gap-16 lg:grid-cols-12">
         <aside className="lg:col-span-4">
           <FadeIn>
             <p className="max-w-sm text-xl leading-relaxed text-bone/90">

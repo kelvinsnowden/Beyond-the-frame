@@ -16,7 +16,7 @@ export function Process() {
   const line = useTransform(scrollYProgress, [0, 1], [0, 1]);
 
   return (
-    <section id="process" aria-labelledby="process-title" className="gutter relative bg-ink-2 py-28 md:py-40">
+    <section id="process" aria-labelledby="process-title" className="gutter relative bg-ink-2 py-16 md:py-40">
       <div className="flex flex-col justify-between gap-10 md:flex-row md:items-end">
         <div>
           <SectionLabel index="05">Booking</SectionLabel>
@@ -32,7 +32,7 @@ export function Process() {
         </PillButton>
       </div>
 
-      <div ref={ref} className="relative mt-16 md:mt-24">
+      <div ref={ref} className="relative mt-12 md:mt-24">
         {/* Progress rail */}
         <div className="absolute left-[11px] top-0 h-full w-px bg-line md:left-0 md:top-[11px] md:h-px md:w-full" aria-hidden>
           <motion.div

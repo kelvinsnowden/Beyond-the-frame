@@ -18,7 +18,7 @@ export function Approach() {
   const [active, setActive] = useState(0);
 
   return (
-    <section id="approach" aria-labelledby="approach-title" className="gutter relative py-28 md:py-40">
+    <section id="approach" aria-labelledby="approach-title" className="gutter relative py-16 md:py-40">
       <SectionLabel index="04">Why us</SectionLabel>
       <h2 id="approach-title" className="display mt-6 max-w-5xl text-[clamp(2.75rem,7vw,6.75rem)]">
         <MaskText className="block">You live the day.</MaskText>
@@ -27,7 +27,7 @@ export function Approach() {
         </MaskText>
       </h2>
 
-      <div className="mt-16 grid gap-10 md:mt-28 md:grid-cols-12">
+      <div className="mt-10 grid gap-10 md:mt-28 md:grid-cols-12">
         {/* Sticky frame (desktop) */}
         <div className="hidden md:col-span-5 md:block">
           <div className="sticky top-[14vh]">

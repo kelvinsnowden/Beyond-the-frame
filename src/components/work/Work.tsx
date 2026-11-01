@@ -99,7 +99,7 @@ export function Work() {
       className="relative"
       style={desktop ? { height: `calc(100vh + ${distance}px)` } : undefined}
     >
-      <div className={cn(desktop ? "sticky top-0 flex h-screen flex-col overflow-hidden" : "py-24")}>
+      <div className={cn(desktop ? "sticky top-0 flex h-screen flex-col overflow-hidden" : "py-14")}>
         {/* Header row */}
         <div className={cn("gutter flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between", desktop ? "pt-28" : "")}>
           <div className="lg:shrink-0">

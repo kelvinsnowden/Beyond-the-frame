@@ -30,8 +30,8 @@ export function FilmShowcase() {
   const minutes = film.duration ? Math.round(film.duration / 60) : 0;
 
   return (
-    <section id="film" ref={ref} aria-labelledby="film-title" className="relative py-24 md:py-36">
-      <div className="gutter mb-10 flex flex-col justify-between gap-6 md:mb-14 md:flex-row md:items-end">
+    <section id="film" ref={ref} aria-labelledby="film-title" className="relative py-14 md:py-36">
+      <div className="gutter mb-8 flex flex-col justify-between gap-6 md:mb-14 md:flex-row md:items-end">
         <div>
           <SectionLabel index="★">Now showing</SectionLabel>
           <h2 id="film-title" className="display mt-6 text-[clamp(2.75rem,7vw,6.75rem)]">

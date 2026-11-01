@@ -37,7 +37,7 @@ export function Services() {
   const rotate = useTransform(vx, [-2000, 2000], [-10, 10], { clamp: true });
 
   return (
-    <section id="services" aria-labelledby="services-title" className="relative py-28 md:py-44">
+    <section id="services" aria-labelledby="services-title" className="relative py-16 md:py-44">
       <div className="gutter grid gap-10 md:grid-cols-12">
         <div className="md:col-span-7">
           <SectionLabel index="03">Events we cover</SectionLabel>
@@ -56,7 +56,7 @@ export function Services() {
 
       <div
         ref={area}
-        className="relative mt-16 md:mt-24"
+        className="relative mt-10 md:mt-24"
         onPointerMove={(e) => {
           if (e.pointerType !== "mouse") return;
           mx.set(e.clientX);

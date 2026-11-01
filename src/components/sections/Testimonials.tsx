@@ -46,7 +46,7 @@ export function Testimonials() {
       id="words"
       aria-labelledby="words-title"
       aria-roledescription="carousel"
-      className="gutter relative py-28 md:py-40"
+      className="gutter relative py-16 md:py-40"
       onPointerEnter={() => setPaused(true)}
       onPointerLeave={() => setPaused(false)}
       onFocus={() => setPaused(true)}

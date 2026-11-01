@@ -18,7 +18,7 @@ export function Studio() {
   const [a, b, c] = studio.media;
 
   return (
-    <section id="studio" aria-labelledby="studio-title" className="gutter relative pb-28 pt-10 md:py-44">
+    <section id="studio" aria-labelledby="studio-title" className="gutter relative pb-16 pt-10 md:py-44">
       <div className="grid gap-8 md:grid-cols-12 md:gap-12">
         <div className="md:col-span-5">
           <SectionLabel index="01">{studio.label}</SectionLabel>
@@ -43,7 +43,7 @@ export function Studio() {
       />
 
       {/* Collage: three plates moving at different depths */}
-      <div ref={collage} className="relative mt-24 grid grid-cols-12 gap-3 md:mt-40 md:gap-6">
+      <div ref={collage} className="relative mt-14 grid grid-cols-12 gap-3 md:mt-40 md:gap-6">
         <motion.div style={{ y: slow }} className="col-span-8 md:col-span-5">
           <ClipReveal>
             <MediaFrame
