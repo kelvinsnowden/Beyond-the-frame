@@ -18,8 +18,8 @@ export function Studio() {
   const [a, b, c] = studio.media;
 
   return (
-    <section id="studio" aria-labelledby="studio-title" className="gutter relative py-28 md:py-44">
-      <div className="grid gap-12 md:grid-cols-12">
+    <section id="studio" aria-labelledby="studio-title" className="gutter relative pb-28 pt-10 md:py-44">
+      <div className="grid gap-8 md:grid-cols-12 md:gap-12">
         <div className="md:col-span-5">
           <SectionLabel index="01">{studio.label}</SectionLabel>
         </div>
@@ -39,7 +39,7 @@ export function Studio() {
       </h2>
       <ScrubText
         text={studio.statement}
-        className="display mt-16 max-w-[18ch] text-[clamp(2.4rem,6.4vw,6.75rem)] leading-[0.98] tracking-[-0.03em] md:mt-24 lg:max-w-[20ch]"
+        className="display mt-10 max-w-[18ch] text-[clamp(2.4rem,6.4vw,6.75rem)] leading-[0.98] tracking-[-0.03em] md:mt-24 lg:max-w-[20ch]"
       />
 
       {/* Collage: three plates moving at different depths */}

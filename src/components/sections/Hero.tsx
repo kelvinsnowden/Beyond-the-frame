@@ -223,7 +223,7 @@ export function Hero() {
       {/* Copy */}
       <motion.div
         style={{ y: textY }}
-        className="gutter relative z-10 flex h-full flex-col justify-end pb-24 sm:pb-10 md:pb-14"
+        className="gutter relative z-10 flex h-full flex-col justify-end pb-10 md:pb-14"
       >
         <motion.p
           className="label mb-5 flex items-center gap-3 text-bone/85 md:mb-8"
