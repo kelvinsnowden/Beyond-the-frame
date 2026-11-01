@@ -67,7 +67,7 @@ export function Studio() {
             className="relative z-10 -ml-[60%] mb-10 w-[150%] shadow-2xl shadow-black/60 md:-ml-[40%] md:w-[140%]"
           >
             <MediaFrame
-              media={media(c, "A couple on the terrace in ceremony attire", [4, 5])}
+              media={media(c, "Studio portrait in a satin dress", [4, 5])}
               sizes="(min-width: 768px) 18vw, 40vw"
               focal="50% 30%"
               className="aspect-[4/5] w-full ring-1 ring-line"

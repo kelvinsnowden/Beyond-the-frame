@@ -79,7 +79,7 @@ export const studio = {
   statement:
     "We are photographers and filmmakers for the days that matter most. We read the room, find the light and stay a step ahead of the moment, so nothing that matters slips past unseen.",
   pillars: ["Stills", "Motion", "Story"],
-  media: ["photos/groom-portrait", "photos/celebration-fans", "photos/couple-terrace"],
+  media: ["photos/groom-portrait", "photos/celebration-fans", "photos/studio-satin"],
 } as const;
 
 export type Category = "Traditional" | "Weddings" | "Celebrations" | "Couples" | "Portraits";
@@ -132,7 +132,7 @@ export const projects: Project[] = [
     summary:
       "Walking sticks, wide-brimmed hats and a family arriving together. A traditional ceremony photographed as it moved.",
     cover: "photos/procession",
-    gallery: ["photos/celebration-fans", "photos/couple-terrace", "photos/groom-portrait"],
+    gallery: ["photos/celebration-fans", "photos/groom-portrait"],
   },
   {
     slug: "the-bride",
