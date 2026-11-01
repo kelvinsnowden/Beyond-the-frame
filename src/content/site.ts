@@ -74,10 +74,10 @@ export const studio = {
     word: "beyond the frame",
     partOfSpeech: "phr.",
     meaning:
-      "Everything a picture holds that its edges can't: the feeling in the room, the sound of the night, the people just out of shot.",
+      "We capture more than just how a moment looked. We capture how it felt, so you can relive it every time you look back.",
   },
   statement:
-    "We capture more than just how a moment looked. We capture how it felt, so you can relive it every time you look back.",
+    "We are photographers and filmmakers for the days that matter most. We read the room, find the light and stay a step ahead of the moment, so nothing that matters slips past unseen.",
   pillars: ["Stills", "Motion", "Story"],
   media: ["photos/groom-portrait", "photos/celebration-fans", "photos/couple-terrace"],
 } as const;
