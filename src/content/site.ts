@@ -122,15 +122,6 @@ export const projects: Project[] = [
     gallery: [],
   },
   {
-    slug: "the-reveal",
-    title: "The Reveal",
-    category: "Celebrations",
-    format: "photo",
-    summary: "A red carpet, a giant bow and one very big surprise, captured the moment it landed.",
-    cover: "photos/gift-reveal",
-    gallery: [],
-  },
-  {
     slug: "portrait-sessions",
     title: "Portrait Sessions",
     category: "Portraits",
@@ -140,6 +131,16 @@ export const projects: Project[] = [
     gallery: ["photos/portrait-beige", "photos/friends-garden"],
   },
   {
+    slug: "the-wedding-party",
+    title: "The Wedding Party",
+    category: "Weddings",
+    format: "photo",
+    summary:
+      "Olive satin, blush pink and matching robes for getting ready. A bride and the women who stood beside her, from the first laugh of the morning to the portraits at the venue.",
+    cover: "photos/wedding-party-olive",
+    gallery: ["photos/wedding-party-pink", "photos/wedding-getting-ready"],
+  },
+  {
     slug: "waithera-kamau-ruracio",
     title: "Waithera & Kamau",
     category: "Traditional",
@@ -147,11 +148,20 @@ export const projects: Project[] = [
     year: "2026",
     tagline: "A Ruracio, in film.",
     summary:
-      "A Ruracio told in film: the arrival from the air, the hats and the walking sticks, the dancing, the vows under an umbrella, and the voice messages guests left for the couple.",
-    cover: "stills/ruracio-umbrella",
+      "A Ruracio told in film: the arrival from the air, the hats and the walking sticks, the dancing, and the voice messages guests left for the couple.",
+    cover: "stills/ruracio-fan",
     preview: "clips/ruracio-preview",
     film: "films/waithera-kamau-ruracio",
-    gallery: ["stills/ruracio-aerial", "stills/ruracio-hats", "stills/ruracio-dance", "stills/ruracio-fan"],
+    gallery: ["stills/ruracio-aerial", "stills/ruracio-hats", "stills/ruracio-dance"],
+  },
+  {
+    slug: "the-reveal",
+    title: "The Reveal",
+    category: "Celebrations",
+    format: "photo",
+    summary: "A red carpet, a giant bow and one very big surprise, captured the moment it landed.",
+    cover: "photos/gift-reveal",
+    gallery: [],
   },
   {
     slug: "the-procession",
@@ -295,7 +305,7 @@ export const principles = [
   {
     title: "Stills and film, one vision.",
     body: "Photography and video planned together, so every image and every frame tells the same story.",
-    media: "stills/ruracio-umbrella",
+    media: "stills/ruracio-hats",
   },
   {
     title: "Invisible on the day.",
@@ -336,7 +346,7 @@ export const booking = {
     steps: [
       "photos/procession",
       "photos/bride-terrace",
-      "stills/ruracio-umbrella",
+      "photos/wedding-party-pink",
       "photos/celebration-fans",
       "photos/night-couple",
     ],
@@ -349,7 +359,7 @@ export const booking = {
       "Something else": "photos/night-portrait",
     },
     teaser: ["photos/bride-terrace", "photos/procession", "photos/birthday-poolside", "photos/gift-reveal", "photos/night-couple"],
-    done: "stills/ruracio-umbrella",
+    done: "photos/wedding-party-olive",
   },
 } as const;
 
