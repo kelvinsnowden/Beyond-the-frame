@@ -1,11 +1,15 @@
 import generated from "@/content/media.generated.json";
 
+export type ImageVariants = { base: string; widths: number[] };
+
 export type ImageAsset = {
   kind: "image";
   key: string;
   src: string;
   width: number;
   height: number;
+  /** Pre-rendered static WebP sizes (see scripts/media.mjs). */
+  variants?: ImageVariants;
   blur?: string;
   alt: string;
 };
@@ -36,7 +40,7 @@ export type EmptyPlate = {
 export type Media = ImageAsset | VideoAsset | EmptyPlate;
 
 type GeneratedEntry =
-  | { kind: "image"; src: string; width: number; height: number; blur?: string }
+  | { kind: "image"; src: string; width: number; height: number; blur?: string; variants?: ImageVariants }
   | {
       kind: "video";
       src: string;
@@ -65,6 +69,14 @@ export function media(
     return { kind: "empty", key: key ?? "", width: fallback[0], height: fallback[1], alt };
   }
   return { ...entry, key, alt } as Media;
+}
+
+/** Loader for next/image: picks the smallest pre-rendered width that covers the request. */
+export function variantLoader(v: ImageVariants) {
+  return ({ width }: { width: number }) => {
+    const w = v.widths.find((x) => x >= width) ?? v.widths[v.widths.length - 1];
+    return `${v.base}.${w}.webp`;
+  };
 }
 
 export const hasMedia = (key?: string) => Boolean(key && manifest[key]);

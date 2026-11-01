@@ -105,6 +105,7 @@ export function Hero() {
                 {frames.map((f, k) => {
                   const isActive = k === active;
                   const isPrev = k === prev;
+                  if (k > 0 && !ready) return null;
                   return (
                     <motion.div
                       key={k}

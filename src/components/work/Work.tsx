@@ -1,6 +1,6 @@
 "use client";
 
-import { AnimatePresence, motion, useMotionValue, useScroll, useTransform } from "motion/react";
+import { AnimatePresence, motion, useInView, useMotionValue, useScroll, useTransform } from "motion/react";
 import { ArrowUpRight } from "lucide-react";
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { projects, type Category } from "@/content/site";
@@ -19,6 +19,8 @@ export function Work() {
   const [filter, setFilter] = useState<Category | "All">("All");
   const [openSlug, setOpenSlug] = useState<string | null>(null);
   const returnFocus = useRef<HTMLElement | null>(null);
+  // Horizontally off-screen cards never trigger native lazy-load, so fetch them when the section is near.
+  const near = useInView(section, { margin: "0px 0px 120% 0px", once: true });
 
   // Only categories that actually have work appear as filters.
   const categories = useMemo(
@@ -153,7 +155,7 @@ export function Work() {
         >
           <AnimatePresence mode="popLayout" initial={false}>
             {list.map((p, i) => (
-              <ProjectCard key={p.slug} project={p} index={i} desktop={desktop} onOpen={(el) => open(p.slug, el)} />
+              <ProjectCard key={p.slug} project={p} index={i} desktop={desktop} eager={near} onOpen={(el) => open(p.slug, el)} />
             ))}
             <motion.li
               key="cta"

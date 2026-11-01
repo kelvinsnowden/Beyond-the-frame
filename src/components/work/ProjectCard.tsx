@@ -30,11 +30,14 @@ export function ProjectCard({
   project,
   index,
   desktop,
+  eager,
   onOpen,
 }: {
   project: Project;
   index: number;
   desktop: boolean;
+  /** Fetch the cover now (the strip is about to slide in). */
+  eager?: boolean;
   onOpen: (el: HTMLElement) => void;
 }) {
   const [hover, setHover] = useState(false);
@@ -101,7 +104,8 @@ export function ProjectCard({
           <div className="absolute inset-0 transition-transform duration-[1.4s] ease-expo group-hover:scale-[1.06]">
             <MediaFrame
               media={cover}
-              sizes="(min-width: 1024px) 45vw, 86vw"
+              sizes="(min-width: 1024px) 40vw, 86vw"
+              eager={eager}
               className="absolute inset-0"
             />
             {hasPreview && (

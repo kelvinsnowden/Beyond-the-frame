@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useInView, useReducedMotion } from "motion/react";
 import { useEffect, useRef, useState, useSyncExternalStore, type CSSProperties } from "react";
-import type { EmptyPlate as EmptyPlateT, Media, VideoAsset } from "@/lib/media";
+import { variantLoader, type EmptyPlate as EmptyPlateT, type Media, type VideoAsset } from "@/lib/media";
 import { cn } from "@/lib/cn";
 
 type Props = {
@@ -23,6 +23,8 @@ type Props = {
   active?: boolean;
   className?: string;
   style?: CSSProperties;
+  /** Load now even if off-screen (e.g. the horizontal work strip, about to slide in). */
+  eager?: boolean;
 };
 
 export function MediaFrame({
@@ -35,6 +37,7 @@ export function MediaFrame({
   active = false,
   className,
   style,
+  eager,
 }: Props) {
   if (media.kind === "empty") return <EmptyPlate plate={media} className={className} style={style} />;
 
@@ -43,10 +46,12 @@ export function MediaFrame({
       <div className={cn(pos(className), "overflow-hidden bg-ink-3", className)} style={style}>
         <Image
           src={media.src}
+          loader={media.variants ? variantLoader(media.variants) : undefined}
           alt={media.alt}
           fill
           sizes={sizes}
           priority={priority}
+          loading={priority ? undefined : eager ? "eager" : "lazy"}
           placeholder={media.blur ? "blur" : "empty"}
           blurDataURL={media.blur}
           quality={82}
@@ -130,6 +135,7 @@ function VideoFrame({
       {mode !== "controls" && (
         <Image
           src={video.poster}
+          unoptimized
           alt={video.alt}
           fill
           sizes={sizes}

@@ -13,12 +13,16 @@
  * Originals are never modified. Requires ffmpeg / ffprobe on PATH.
  */
 import { execFileSync } from "node:child_process";
+import crypto from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
 
 const root = process.cwd();
 const mediaDir = path.join(root, "public", "media");
 const outDir = path.join(mediaDir, "_web");
+const imgDir = path.join(mediaDir, "_img");
+/** Static responsive widths. Must match images.deviceSizes + imageSizes in next.config.ts. */
+const WIDTHS = [128, 256, 384, 640, 828, 1200, 1920, 2560];
 const manifestPath = path.join(root, "src", "content", "media.generated.json");
 
 const IMAGE = new Set([".jpg", ".jpeg", ".png", ".webp", ".avif"]);
@@ -54,6 +58,27 @@ function blurFrom(file, seek) {
   return `data:image/jpeg;base64,${buf.toString("base64")}`;
 }
 
+/**
+ * Pre-render static WebP variants (content-hashed, cache-forever) so the site
+ * never waits on an on-demand image optimiser.
+ */
+function imageVariants(file, key, width) {
+  const hash = crypto.createHash("sha1").update(fs.readFileSync(file)).digest("hex").slice(0, 8);
+  const flat = key.replaceAll("/", "__");
+  const widths = [...WIDTHS.filter((w) => w < width), Math.min(width, 2560)].filter((w, i, a) => a.indexOf(w) === i);
+  // Drop variants left over from a previous version of this image.
+  for (const f of fs.readdirSync(imgDir)) {
+    if (f.startsWith(`${flat}.`) && !f.startsWith(`${flat}.${hash}.`)) fs.rmSync(path.join(imgDir, f));
+  }
+  for (const w of widths) {
+    const out = path.join(imgDir, `${flat}.${hash}.${w}.webp`);
+    if (fs.existsSync(out)) continue;
+    run("ffmpeg", ["-y", "-v", "error", "-i", file, "-vf", `scale=${w}:-2:flags=lanczos`,
+      "-c:v", "libwebp", "-quality", w <= 384 ? "72" : "78", "-compression_level", "6", out]);
+  }
+  return { base: `/media/_img/${flat}.${hash}`, widths };
+}
+
 const fresh = (src, out) => fs.existsSync(out) && fs.statSync(out).mtimeMs >= fs.statSync(src).mtimeMs;
 
 function encode(src, out, maxW, crf) {
@@ -67,6 +92,7 @@ function encode(src, out, maxW, crf) {
 const manifest = {};
 const files = walk(mediaDir);
 fs.mkdirSync(outDir, { recursive: true });
+fs.mkdirSync(imgDir, { recursive: true });
 
 for (const file of files) {
   const ext = path.extname(file).toLowerCase();
@@ -77,7 +103,8 @@ for (const file of files) {
   try {
     if (IMAGE.has(ext)) {
       const { width, height } = probe(file);
-      manifest[key] = { kind: "image", src: url, width, height, blur: blurFrom(file) };
+      const variants = imageVariants(file, key, width);
+      manifest[key] = { kind: "image", src: url, width, height, blur: blurFrom(file), variants };
       console.log(`  image  ${key}  ${width}×${height}`);
     } else if (VIDEO.has(ext)) {
       const { width, height, duration } = probe(file);

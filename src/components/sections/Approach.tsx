@@ -1,6 +1,6 @@
 "use client";
 
-import { AnimatePresence, motion, useInView } from "motion/react";
+import { motion, useInView } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import { principles } from "@/content/site";
 import { media } from "@/lib/media";
@@ -32,22 +32,22 @@ export function Approach() {
         <div className="hidden md:col-span-5 md:block">
           <div className="sticky top-[14vh]">
             <div className="relative aspect-[4/5] overflow-hidden">
-              <AnimatePresence initial={false}>
+              {/* Every frame is mounted (and loaded) up front; scrolling develops them in order. */}
+              {principles.map((p, k) => (
                 <motion.div
-                  key={active}
+                  key={p.title}
                   className="absolute inset-0"
-                  initial={{ clipPath: "inset(100% 0% 0% 0%)", scale: 1.15 }}
-                  animate={{ clipPath: "inset(0% 0% 0% 0%)", scale: 1 }}
-                  exit={{ opacity: 0.6, transition: { duration: 1.2 } }}
+                  style={{ zIndex: k }}
+                  initial={false}
+                  animate={{
+                    clipPath: k <= active ? "inset(0% 0% 0% 0%)" : "inset(100% 0% 0% 0%)",
+                    scale: k <= active ? 1 : 1.15,
+                  }}
                   transition={{ duration: 1.2, ease: [0.76, 0, 0.24, 1] }}
                 >
-                  <MediaFrame
-                    media={media(principles[active].media, principles[active].title, [4, 5])}
-                    sizes="42vw"
-                    className="absolute inset-0"
-                  />
+                  <MediaFrame media={media(p.media, p.title, [4, 5])} sizes="42vw" eager className="absolute inset-0" />
                 </motion.div>
-              </AnimatePresence>
+              ))}
               <div className="crop-marks pointer-events-none absolute inset-4 opacity-40" aria-hidden />
             </div>
             <div className="label mt-4 flex justify-between text-mute" aria-hidden>

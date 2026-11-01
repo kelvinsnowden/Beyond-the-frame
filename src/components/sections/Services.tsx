@@ -3,6 +3,7 @@
 import {
   AnimatePresence,
   motion,
+  useInView,
   useMotionValue,
   useSpring,
   useTransform,
@@ -23,7 +24,9 @@ export function Services() {
   const [open, setOpen] = useState<number | null>(0);
   const [hovered, setHovered] = useState<number | null>(null);
   const area = useRef<HTMLDivElement>(null);
+  const nearList = useInView(area, { margin: "400px 0px", once: true });
   const baseId = useId();
+  const showPreview = hovered !== null && hasMedia(services[hovered]?.media);
 
   // Floating preview that trails the cursor and leans with its velocity.
   const mx = useMotionValue(0);
@@ -162,18 +165,21 @@ export function Services() {
           className="pointer-events-none fixed left-0 top-0 z-30 hidden md:block"
           style={{ x, y, rotate }}
         >
-          <AnimatePresence>
-            {hovered !== null && hasMedia(services[hovered].media) && (
-              <motion.div
-                key="preview"
-                className="relative translate-x-10 -translate-y-1/2 overflow-hidden"
-                style={{ width: "min(26vw, 380px)", aspectRatio: "4 / 5" }}
-                initial={{ clipPath: "inset(50% 50% 50% 50%)", scale: 0.9 }}
-                animate={{ clipPath: "inset(0% 0% 0% 0%)", scale: 1 }}
-                exit={{ clipPath: "inset(50% 50% 50% 50%)", scale: 0.9 }}
-                transition={{ duration: 0.6, ease: EASE }}
-              >
-                {services.map((s, i) => (
+          {/* Mounted once the list is near so photos are loaded before the first hover. */}
+          {nearList && (
+            <motion.div
+              className="relative translate-x-10 -translate-y-1/2 overflow-hidden"
+              style={{ width: "min(26vw, 380px)", aspectRatio: "4 / 5" }}
+              initial={false}
+              animate={
+                showPreview
+                  ? { clipPath: "inset(0% 0% 0% 0%)", scale: 1, opacity: 1 }
+                  : { clipPath: "inset(50% 50% 50% 50%)", scale: 0.9, opacity: 0 }
+              }
+              transition={{ duration: 0.6, ease: EASE }}
+            >
+              {services.map((s, i) =>
+                hasMedia(s.media) ? (
                   <motion.div
                     key={s.title}
                     className="absolute inset-0"
@@ -183,16 +189,17 @@ export function Services() {
                   >
                     <MediaFrame
                       media={media(s.media, "", [4, 5])}
-                      sizes="380px"
+                      sizes="384px"
+                      eager
                       videoMode="hover"
                       active={hovered === i}
                       className="absolute inset-0"
                     />
                   </motion.div>
-                ))}
-              </motion.div>
-            )}
-          </AnimatePresence>
+                ) : null,
+              )}
+            </motion.div>
+          )}
         </motion.div>
       </div>
     </section>

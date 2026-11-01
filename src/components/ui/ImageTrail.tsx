@@ -1,9 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { AnimatePresence, motion, useInView, useReducedMotion } from "motion/react";
 import { useRef, useState, type ReactNode } from "react";
-import { media, type ImageAsset } from "@/lib/media";
+import { media, variantLoader, type ImageAsset } from "@/lib/media";
 
 type Spawn = { id: number; x: number; y: number; img: ImageAsset; rot: number };
 
@@ -27,9 +27,13 @@ export function ImageTrail({
   const [spawns, setSpawns] = useState<Spawn[]>([]);
   const last = useRef<{ x: number; y: number } | null>(null);
   const counter = useRef(0);
+  const wrap = useRef<HTMLDivElement>(null);
+  // Only fetch the trail images once the band is close, so they never compete with the hero.
+  const near = useInView(wrap, { margin: "600px 0px", once: true });
 
   return (
     <div
+      ref={wrap}
       className={className}
       data-cursor="Move"
       onPointerMove={(e) => {
@@ -65,19 +69,37 @@ export function ImageTrail({
                   exit={{ opacity: 0, scale: 0.9, y: 30, filter: "blur(6px)" }}
                   transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
                 >
-                  <Image src={p.img.src} alt="" fill sizes="200px" className="object-cover" />
+                  <Image
+                    src={p.img.src}
+                    loader={p.img.variants ? variantLoader(p.img.variants) : undefined}
+                    alt=""
+                    fill
+                    sizes="200px"
+                    className="object-cover"
+                  />
                 </motion.div>
               );
             })}
           </AnimatePresence>
         </div>
       </div>
-      {/* Warm the cache so the first trail frames appear instantly. */}
-      <div aria-hidden className="pointer-events-none fixed -left-[9999px] size-px overflow-hidden">
-        {images.map((m) => (
-          <Image key={m.key} src={m.src} alt="" width={200} height={250} sizes="200px" loading="eager" />
-        ))}
-      </div>
+      {/* Warm the cache (same URLs the trail uses) once the band is near. */}
+      {near && !reduce && (
+        <div aria-hidden className="pointer-events-none fixed -left-[9999px] h-px w-[200px] overflow-hidden">
+          {images.map((m) => (
+            <Image
+              key={m.key}
+              src={m.src}
+              loader={m.variants ? variantLoader(m.variants) : undefined}
+              alt=""
+              width={200}
+              height={250}
+              sizes="200px"
+              loading="eager"
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 }
