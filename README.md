@@ -29,15 +29,11 @@ stays hidden until real quotes are added.
 3. Reference files in `site.ts` by path without extension, e.g. `"photos/procession"`.
    Missing files render as labelled “awaiting media” plates, so layouts never break.
 
-## Enquiry form
+## Bookings (WhatsApp)
 
-`POST /api/enquiry` validates and delivers each enquiry. Copy `.env.example` to
-`.env.local` and set either:
-
-- `RESEND_API_KEY` + `ENQUIRY_TO_EMAIL` (email via Resend), and/or
-- `ENQUIRY_WEBHOOK_URL` (JSON to Zapier, Make, Slack, a CRM…).
-
-Without either, development logs enquiries to the console and production shows
-visitors the direct email address instead.
+The booking popup and the enquiry form both open WhatsApp with the visitor's
+details already written out, addressed to the number in `contact.whatsappHref`
+(`src/content/site.ts`). Nothing is stored on a server; the visitor just presses
+send. The message format lives in `src/lib/whatsapp.ts`.
 
 Also set `NEXT_PUBLIC_SITE_URL` for canonical / Open Graph URLs.

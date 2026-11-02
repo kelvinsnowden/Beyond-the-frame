@@ -13,9 +13,10 @@ import {
   X,
 } from "lucide-react";
 import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
-import { booking, contact, enquiry } from "@/content/site";
+import { booking, enquiry } from "@/content/site";
 import { media } from "@/lib/media";
 import { validateEnquiry, type Enquiry } from "@/lib/enquiry-schema";
+import { bookingMessage, openWhatsApp, whatsappLink } from "@/lib/whatsapp";
 import { useExperience } from "@/components/providers/Experience";
 import { MediaFrame } from "@/components/ui/MediaFrame";
 import { cn } from "@/lib/cn";
@@ -73,8 +74,6 @@ export function BookingPopup() {
   const [dir, setDir] = useState(1);
   const [d, setD] = useState<Draft>(blank);
   const [errors, setErrors] = useState<Partial<Record<keyof Draft, string>>>({});
-  const [sending, setSending] = useState(false);
-  const [failed, setFailed] = useState(false);
   const panel = useRef<HTMLDivElement>(null);
 
   const set = <K extends keyof Draft>(k: K, v: Draft[K]) => {
@@ -88,6 +87,7 @@ export function BookingPopup() {
     if (store.get(BOOKED_KEY, "local") || store.get(SEEN_KEY, "session")) return;
     let id: ReturnType<typeof setTimeout>;
     const attempt = () => {
+      if (store.get(BOOKED_KEY, "local")) return; // booked in the meantime (popup or main form)
       const busy =
         document.documentElement.style.overflow === "hidden" || // menu / viewer / film open
         document.activeElement?.closest("#contact form") !== null; // already filling the form
@@ -108,7 +108,6 @@ export function BookingPopup() {
       store.set(SEEN_KEY, "1", "session");
       if (eventType) setD((p) => ({ ...p, eventType }));
       setStep(eventType ? 1 : 0);
-      setFailed(false);
       setPhase("open");
     };
     const onClick = (e: MouseEvent) => {
@@ -171,29 +170,16 @@ export function BookingPopup() {
     [step, stepError],
   );
 
-  const submit = useCallback(async () => {
+  // WhatsApp-first: open a chat with every answer pre-filled; the visitor just presses send.
+  const submit = useCallback(() => {
     const err = stepError(4);
     if (Object.keys(err).length) {
       setErrors(err);
       return;
     }
-    setSending(true);
-    setFailed(false);
-    try {
-      const res = await fetch("/api/enquiry", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...d, message: "Sent from the booking popup." }),
-      });
-      const json = await res.json().catch(() => ({}));
-      if (!res.ok || !json.ok) throw new Error();
-      store.set(BOOKED_KEY, "1", "local");
-      setPhase("done");
-    } catch {
-      setFailed(true);
-    } finally {
-      setSending(false);
-    }
+    openWhatsApp(bookingMessage(d));
+    store.set(BOOKED_KEY, "1", "local");
+    setPhase("done");
   }, [d, stepError]);
 
   // Pick a choice and glide to the next frame.
@@ -262,7 +248,7 @@ export function BookingPopup() {
     return key || booking.visuals.steps[step];
   }, [d.eventType, step, phase]);
 
-  const waText = useMemo(() => whatsappText(d), [d]);
+  const waLink = useMemo(() => whatsappLink(bookingMessage(d)), [d]);
 
   return (
     <>
@@ -393,7 +379,7 @@ export function BookingPopup() {
                       transition={{ duration: 0.45, ease: EASE }}
                     >
                       {phase === "done" ? (
-                        <Done name={d.name} phone={d.phone} waText={waText} onClose={close} />
+                        <Done name={d.name} waLink={waLink} onClose={close} />
                       ) : (
                         <StepBody step={step} d={d} set={set} choose={choose} errors={errors} />
                       )}
@@ -403,24 +389,6 @@ export function BookingPopup() {
 
                 {phase === "open" && (
                   <div className="border-t border-line px-5 py-4 sm:px-8">
-                    {failed && (
-                      <motion.div
-                        initial={{ opacity: 0, y: 6 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        role="alert"
-                        className="mb-3 flex flex-col gap-3 rounded-xl border border-safelight/40 bg-safelight/10 p-3 text-sm sm:flex-row sm:items-center sm:justify-between"
-                      >
-                        <span>We couldn&rsquo;t send that online. Send it on WhatsApp instead, it&rsquo;s all filled in.</span>
-                        <a
-                          href={`${contact.whatsappHref}?text=${encodeURIComponent(waText)}`}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="inline-flex shrink-0 items-center gap-2 rounded-full bg-bone px-4 py-2 font-medium text-ink"
-                        >
-                          <MessageCircle className="size-4" /> Send on WhatsApp
-                        </a>
-                      </motion.div>
-                    )}
                     <div className="flex items-center justify-between gap-3">
                       <button
                         type="button"
@@ -430,9 +398,16 @@ export function BookingPopup() {
                       >
                         <ArrowLeft className="size-4" /> Back
                       </button>
-                      <span className="label hidden text-mute md:inline">
-                        {step === 0 || step === 2 ? "Press a number to pick" : "Press Enter ↵ to continue"}
-                      </span>
+                      {step === 4 ? (
+                        <span id="booking-wa-note" className="flex items-center gap-1.5 text-xs text-mute">
+                          <MessageCircle className="size-3.5 text-safelight" />
+                          Opens WhatsApp with your details
+                        </span>
+                      ) : (
+                        <span className="label hidden text-mute md:inline">
+                          {step === 0 || step === 2 ? "Press a number to pick" : "Press Enter ↵ to continue"}
+                        </span>
+                      )}
                       {step < 4 ? (
                         <button
                           type="button"
@@ -448,16 +423,12 @@ export function BookingPopup() {
                         <button
                           type="button"
                           onClick={submit}
-                          disabled={sending}
-                          className="group relative flex h-12 items-center gap-2 overflow-hidden rounded-full bg-safelight pl-6 pr-2 text-sm font-medium text-white disabled:opacity-70"
+                          aria-describedby="booking-wa-note"
+                          className="group relative flex h-12 items-center gap-2 overflow-hidden rounded-full bg-safelight pl-6 pr-2 text-sm font-medium text-white"
                         >
-                          {sending ? "Sending…" : "Book with us"}
+                          Book with us
                           <span className="flex size-8 items-center justify-center rounded-full bg-bone text-ink">
-                            {sending ? (
-                              <span className="size-3 animate-spin rounded-full border-2 border-ink border-t-transparent" />
-                            ) : (
-                              <Camera className="size-4" />
-                            )}
+                            <Camera className="size-4" />
                           </span>
                         </button>
                       )}
@@ -917,7 +888,7 @@ function TeaserReel() {
   );
 }
 
-function Done({ name, phone, waText, onClose }: { name: string; phone: string; waText: string; onClose: () => void }) {
+function Done({ name, waLink, onClose }: { name: string; waLink: string; onClose: () => void }) {
   return (
     <div className="py-4">
       <motion.span
@@ -926,25 +897,25 @@ function Done({ name, phone, waText, onClose }: { name: string; phone: string; w
         transition={{ type: "spring", stiffness: 300, damping: 15, delay: 0.3 }}
         className="flex size-16 items-center justify-center rounded-full bg-safelight text-white"
       >
-        <Check className="size-8" />
+        <MessageCircle className="size-8" />
       </motion.span>
-      <p className="label mt-6 text-mute">Booking received</p>
+      <p className="label mt-6 text-mute">One last tap</p>
       <h2 id="booking-q" className="display mt-2 text-[clamp(2.4rem,5vw,4rem)] leading-[0.95]">
-        That&rsquo;s a wrap, <em className="italic">{name.split(" ")[0] || "friend"}!</em>
+        Almost a wrap, <em className="italic">{name.split(" ")[0] || "friend"}!</em>
       </h2>
       <p className="mt-4 max-w-md text-lg leading-relaxed text-mute">
-        We&rsquo;ll call or WhatsApp you on <span className="text-bone">{phone}</span> very soon to talk through the
-        details.
+        WhatsApp has opened with your booking details. Just press <span className="text-bone">send</span> and
+        we&rsquo;ll reply personally.
       </p>
       <div className="mt-8 flex flex-wrap gap-3">
         <a
-          href={`${contact.whatsappHref}?text=${encodeURIComponent(waText)}`}
+          href={waLink}
           target="_blank"
           rel="noreferrer"
           data-autofocus
           className="inline-flex h-12 items-center gap-2 rounded-full bg-bone px-6 text-sm font-medium text-ink"
         >
-          <MessageCircle className="size-4" /> Can&rsquo;t wait? WhatsApp us
+          <MessageCircle className="size-4" /> Didn&rsquo;t open? Tap here
         </a>
         <button
           type="button"
@@ -1024,19 +995,4 @@ function guestLabel(g: number) {
   if (g < 400) return "A big celebration";
   if (g < 800) return "Half the town is coming";
   return "The whole village";
-}
-function whatsappText(d: Draft) {
-  const lines = [
-    "Hi Beyond the Frame! I'd like to book:",
-    `• Event: ${d.eventType || "-"}`,
-    `• Date: ${d.dateFlexible ? "Not set yet" : d.date ? prettyDate(d.date) : "-"}`,
-    `• Coverage: ${d.coverage || "-"}`,
-    `• Venue: ${d.venue || "-"}`,
-    `• Guests: ${d.guests || "-"}`,
-    `• Budget: ${d.budget || "-"}`,
-    `• Name: ${d.name || "-"}`,
-    `• Phone: ${d.phone || "-"}`,
-  ];
-  if (d.email) lines.push(`• Email: ${d.email}`);
-  return lines.join("\n");
 }

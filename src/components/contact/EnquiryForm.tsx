@@ -1,12 +1,13 @@
 "use client";
 
 import { AnimatePresence, motion } from "motion/react";
-import { ArrowUpRight, Check, Loader2 } from "lucide-react";
+import { ArrowUpRight, MessageCircle } from "lucide-react";
 import { useEffect, useId, useRef, useState, type ReactNode } from "react";
-import { contact, enquiry } from "@/content/site";
+import { enquiry } from "@/content/site";
 import { PREFILL_EVENT, type PrefillDetail } from "@/lib/enquiry-events";
 import { validateEnquiry, type Enquiry, type EnquiryErrors } from "@/lib/enquiry-schema";
 import { cn } from "@/lib/cn";
+import { bookingMessage, openWhatsApp, whatsappLink } from "@/lib/whatsapp";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -25,13 +26,12 @@ const empty: Enquiry = {
   website: "",
 };
 
-type Status = "idle" | "sending" | "sent" | "error";
+type Status = "idle" | "sent";
 
 export function EnquiryForm() {
   const [data, setData] = useState<Enquiry>(empty);
   const [errors, setErrors] = useState<EnquiryErrors>({});
   const [status, setStatus] = useState<Status>("idle");
-  const [serverError, setServerError] = useState("");
   const formRef = useRef<HTMLFormElement>(null);
 
   const set = <K extends keyof Enquiry>(k: K, v: Enquiry[K]) => {
@@ -53,7 +53,7 @@ export function EnquiryForm() {
     return () => window.removeEventListener(PREFILL_EVENT, onPrefill);
   }, []);
 
-  async function submit(ev: React.FormEvent) {
+  function submit(ev: React.FormEvent) {
     ev.preventDefault();
     const errs = validateEnquiry(data);
     setErrors(errs);
@@ -62,24 +62,12 @@ export function EnquiryForm() {
       formRef.current?.querySelector<HTMLElement>(`[data-field="${first}"]`)?.focus();
       return;
     }
-    setStatus("sending");
-    setServerError("");
+    // WhatsApp-first: open a chat with the enquiry pre-filled; the visitor presses send.
+    openWhatsApp(bookingMessage(data));
     try {
-      const res = await fetch("/api/enquiry", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
-      const json = await res.json().catch(() => ({}));
-      if (!res.ok || !json.ok) {
-        if (json.errors) setErrors(json.errors);
-        throw new Error(json.error || "Something went wrong.");
-      }
-      setStatus("sent");
-    } catch (e) {
-      setServerError(e instanceof Error ? e.message : "Something went wrong.");
-      setStatus("error");
-    }
+      localStorage.setItem("btf-booked", "1"); // stops the booking popup from appearing afterwards
+    } catch {}
+    setStatus("sent");
   }
 
   return (
@@ -95,16 +83,24 @@ export function EnquiryForm() {
             className="flex min-h-[520px] flex-col items-start justify-center gap-6 bg-ink-3 p-8 md:p-12"
           >
             <span className="flex size-14 items-center justify-center rounded-full bg-safelight">
-              <Check className="size-6" />
+              <MessageCircle className="size-6" />
             </span>
             <h3 className="display text-5xl md:text-6xl">
-              Received<span className="text-safelight">.</span>
+              One last tap<span className="text-safelight">.</span>
             </h3>
             <p className="max-w-md text-lg leading-relaxed text-mute">
-              Thank you, {data.name.split(" ")[0]}. We&rsquo;ll check availability
-              {data.dateFlexible || !data.date ? "" : ` for ${formatDate(data.date)}`} and call or WhatsApp
-              you on <span className="text-bone">{data.phone}</span> personally.
+              Thank you, {data.name.split(" ")[0]}. WhatsApp has opened with your enquiry
+              {data.dateFlexible || !data.date ? "" : ` for ${formatDate(data.date)}`}. Just press{" "}
+              <span className="text-bone">send</span> and we&rsquo;ll reply personally.
             </p>
+            <a
+              href={whatsappLink(bookingMessage(data))}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex h-12 items-center gap-2 rounded-full bg-bone px-6 text-sm font-medium text-ink"
+            >
+              <MessageCircle className="size-4" /> Didn&rsquo;t open? Tap here
+            </a>
             <button
               type="button"
               onClick={() => {
@@ -218,40 +214,20 @@ export function EnquiryForm() {
 
             <div className="flex flex-col gap-6 border-t border-line pt-8 sm:flex-row sm:items-center sm:justify-between">
               <p id="form-note" className="max-w-xs text-sm text-mute">
-                {contact.responseNote} Your details are only used to reply to this enquiry.
+                Tapping the button opens WhatsApp with your details filled in. Just press send.
               </p>
               <button
                 type="submit"
-                disabled={status === "sending"}
-                className="group relative flex h-16 items-center justify-between gap-6 overflow-hidden rounded-full bg-bone pl-8 pr-2 text-ink disabled:opacity-70 sm:min-w-[300px]"
+                className="group relative flex h-16 items-center justify-between gap-6 overflow-hidden rounded-full bg-bone pl-8 pr-2 text-ink sm:min-w-[300px]"
               >
-                <span className="relative z-10 text-base font-medium">
-                  {status === "sending" ? "Sending…" : "Book with us"}
-                </span>
+                <span className="relative z-10 text-base font-medium">Book with us</span>
                 <span className="relative z-10 flex size-12 items-center justify-center rounded-full bg-ink text-bone transition-transform duration-500 ease-expo group-hover:rotate-45">
-                  {status === "sending" ? <Loader2 className="size-5 animate-spin" /> : <ArrowUpRight className="size-5" />}
+                  <ArrowUpRight className="size-5" />
                 </span>
                 <span className="absolute inset-0 origin-left scale-x-0 bg-safelight transition-transform duration-700 ease-expo group-hover:scale-x-100" />
               </button>
             </div>
 
-            <AnimatePresence>
-              {status === "error" && (
-                <motion.p
-                  role="alert"
-                  initial={{ opacity: 0, y: 8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0 }}
-                  className="border-l-2 border-safelight pl-4 text-sm"
-                >
-                  {serverError} You can also call or WhatsApp us on{" "}
-                  <a className="underline" href={contact.phoneHref}>
-                    {contact.phone}
-                  </a>
-                  .
-                </motion.p>
-              )}
-            </AnimatePresence>
           </motion.form>
         )}
       </AnimatePresence>
